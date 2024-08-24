@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Are You AI? | Cloudflare</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+  <script src="https://unpkg.com/htmx.org/dist/htmx.js"></script>
+</head>
+
+<body>
+  <h1>Are you AI? </h1>
+
+	<p>
+    <small>
+			<a href="/ui">Query</a> ・ <a href="/notes">Notes</a> ・ <a href="/write">Add note</a>
+    </small>
+	</p>
+
+	<div style="display: flex; justify-content: center; padding-bottom: 1em;">
+		<img src="https://imagedelivery.net/llMDWXFPgX44M9elMfQ9XA/1761b7e9-42ba-4081-ab48-06796d20b500/public" alt="Image Description" style="max-height: 250px; max-width: 500px;">
+	</div>
+
+  <form hx-get="/guess" hx-trigger="submit" hx-target="#result">
+    <textarea name="text" required="true" placeholder="Ask the AI anything"></textarea>
+    <button type="submit">Submit</button>
+  </form>
+
+  <p id="result"></p>
+</body>
+
+</html>

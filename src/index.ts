@@ -2,7 +2,7 @@
 import { Hono } from "hono"
 import ui from "ui.html";
 import write from "write.html";
-import { getAiImageDescription } from "./utils";
+import { generateVectorEmbedding, getAiImageDescription } from "./utils";
 
 const app = new Hono()
 
@@ -25,38 +25,30 @@ app.get("/guess", async (c: any) => {
 
 	const guess = c.req.query("text") || "A field of tall grass with bunnies dancing around";
 
-	const aiDescription = await getAiImageDescription(c)
-	return c.text(aiDescription)
+	const aiGeneratedDescription = await getAiImageDescription(c)
+	console.log('Location 1')
+	const aiVectorValues = await generateVectorEmbedding(c, aiGeneratedDescription);
+	console.log('Location 2')
 
-	console.log(guess);
-	const embeddings = await c.env.AI.run('@cf/baai/bge-base-en-v1.5', { text: guess })
-	const vectors = embeddings.data[0]
-
-	const vectorQuery = await c.env.VECTORIZE.query(vectors, { topK: 1 });
-	console.log(vectorQuery.matches[0].score)
-	return c.text(vectorQuery.matches[0].score);
-
-	// const vecId = vectorQuery.matches[0]?.vectorId
-
-	let notes = []
-	if (vecId) {
-	  const query = `SELECT * FROM notes WHERE id = ?`
-	  const { results } = await c.env.DATABASE.prepare(query).bind(vecId).all()
-	  if (results) notes = results.map((vec: { text: string; }) => vec.text)
-	}
+	const inserted = await c.env.VECTORIZE.upsert([
+		{
+			id: "1",
+			values: aiVectorValues
+		},
+	]);
+	console.log('Location 3')
 
 
+	const userVectorValues = await generateVectorEmbedding(c, guess);
+	console.log('Location 4')
 
-	const {response: answer } = await c.env.AI.run(
-		"@cf/meta/llama-2-7b-chat-int8",
-	{
-		messages: [
-			{role:"system", content: "You are a helpful assistant"},
-			{role: "user", content: guess}
-		]
-	})
+	const vectorQuery = await c.env.VECTORIZE.query(userVectorValues, { topK: 1 });
+	console.log('Location 5')
 
-	return c.text(answer)
+	console.log(vectorQuery);
+	const similarityScore = vectorQuery.matches[0].score;
+
+	return c.text(`The AI generated description is: ${aiGeneratedDescription} \n\n The similarity score between the AI generated description and your guess is: ${similarityScore}`);
 })
 
 
@@ -78,27 +70,13 @@ app.post("/notes", async (c) => {
 	  return c.text("Failed to create note", 500);
 	}
 
-	const { data } = await c.env.AI.run("@cf/baai/bge-base-en-v1.5", {
-	  text: [text],
-	});
-	const values = data[0];
-
-	if (!values) {
-	  return c.text("Failed to generate vector embedding", 500);
-	}
-
-	console.log(values);
-
 	const { id } = record;
-	const inserted = await c.env.VECTORIZE.upsert([
-	  {
-		id: id.toString(),
-		values,
-	  },
-	]);
+	const inserted = await generateVectorEmbedding(c, text);
 
 	return c.json({ id, text, inserted });
   });
 
 
 export default app
+
+

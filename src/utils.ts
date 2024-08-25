@@ -18,4 +18,18 @@ async function getAiImageDescription(c: any): Promise<string> {
 	}
 }
 
-export { getAiImageDescription }
+const generateVectorEmbedding = async (c: any, text: string) => {
+	const { data } = await c.env.AI.run("@cf/baai/bge-base-en-v1.5", {
+		text: [text],
+	});
+	const values = data[0];
+
+	if (!values) {
+		return c.text("Failed to generate vector embedding", 500);
+	}
+
+	return values;
+};
+
+
+export { getAiImageDescription,  generateVectorEmbedding }

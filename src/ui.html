@@ -17,6 +17,12 @@
     </small>
 	</p>
 
+	<form hx-get="/welcome" hx-trigger="submit" hx-indicator="#loading1" hx-target="#welcome">
+    <button type="submit">Submit</button>
+  </form>
+	<p id="loading1" class="htmx-indicator">Loading...</p>
+  <p id="welcome"></p>
+
 	<div style="display: flex; justify-content: center; padding-bottom: 1em;">
 		<img src="https://imagedelivery.net/llMDWXFPgX44M9elMfQ9XA/1761b7e9-42ba-4081-ab48-06796d20b500/public" alt="Image Description" style="max-height: 250px; max-width: 500px;">
 	</div>

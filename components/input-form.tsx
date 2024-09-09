@@ -1,64 +1,37 @@
 "use client";
 import React, { useEffect } from "react";
+import { nanoid } from "nanoid";
+import { getAiSimilarity } from "@/lib/ai";
+import Score from "./score";
+import { GuessData } from "@/types/guessData";
 
 export const runtime = "edge";
 
-const handleSubmitOld = async (e: any) => {
-  e.preventDefault();
-
-  const form = e.target as HTMLFormElement;
-  const formData = new FormData(form);
-  const text = formData.get("message");
-
-  console.log("heading out to API");
-  const stuff = await getAiSimilarity(text as string);
-  console.log("back from API");
-  console.log(stuff);
-};
+const sessionId = nanoid();
 
 interface InputFormProps {
   imageUrl: string;
 }
 
 const InputForm: React.FC<InputFormProps> = (props) => {
-  const [aiDescription, setAiDescription] = React.useState<string>("");
+  const [scoreData, setScoreData] =  React.useState<GuessData>();
 
-  const getAiDescription = async () => {
-    const res = await fetch(props.imageUrl);
-    const blob = await res.arrayBuffer();
-    const encodedImage = Array.from(new Uint8Array(blob));
-    const response = await fetch(
-      "http://127.0.0.1:8787/getAiImageDescription",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ encodedImage }),
-      }
-    );
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
 
-    const data = await response.json();
-    console.log(data);
-    setAiDescription(data?.aiImageDescription);
-    return data;
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+    const text = formData.get("message") as string;
+
+    console.log("heading out to API");
+    const data = await getAiSimilarity(sessionId, text);
+    console.log("back from API");
+    setScoreData(data)
   };
 
   return (
     <div>
-      <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold mt-2 py-2 px-4 rounded"
-        type="submit"
-        onClick={getAiDescription}
-      >
-        Submit
-      </button>
-      <form onSubmit={handleSubmitOld}>
-        {aiDescription && (
-          <div className="mt-4">
-            <p className="text-gray-900 dark:text-white">{aiDescription}</p>
-          </div>
-        )}
+      <form onSubmit={handleSubmit}>
         <div className="m-auto w-1/2">
           <label className="mb-2 text-sm font-medium text-gray-900 dark:text-white">
             Your AI Image Description
@@ -77,22 +50,11 @@ const InputForm: React.FC<InputFormProps> = (props) => {
           </button>
         </div>
       </form>
+      <div className="m-auto w-1/2">
+        <Score scoreData={scoreData} />
+      </div>
     </div>
   );
 };
 
 export default InputForm;
-
-async function getAiSimilarity(text: string) {
-  const response = await fetch("http://127.0.0.1:8787/guess", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ text }),
-  });
-
-  const data = await response.json();
-
-  return data;
-}

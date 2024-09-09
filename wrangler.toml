@@ -16,7 +16,7 @@ database_id = "8c52ad7d-01d9-46b7-a7de-daa595dc59b8"
 
 [[vectorize]]
 binding = "VECTORIZE"
-index_name = "ai-images"
+index_name = "are-you-ai"
 
 # Automatically place your workloads in an optimal location to minimize latency.
 # If you are running back-end logic in a Worker, running it closer to your back-end infrastructure

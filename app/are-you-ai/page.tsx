@@ -3,9 +3,11 @@ import Image from "next/image";
 
 export const runtime = "edge";
 
-const imageUrl = "https://imagedelivery.net/llMDWXFPgX44M9elMfQ9XA/1761b7e9-42ba-4081-ab48-06796d20b500/public";
+const imageUrl =
+  "https://imagedelivery.net/llMDWXFPgX44M9elMfQ9XA/1761b7e9-42ba-4081-ab48-06796d20b500/public";
 
-export default function Home() {    return (
+export default function Home() {
+  return (
     <div>
       <div className="flex flex-col items-center p-12">
         <h1 className="text-4xl font-bold mb-8">Are You AI?</h1>
@@ -19,6 +21,7 @@ export default function Home() {    return (
           width={300}
           height={250}
           alt="AI Generated Image"
+          priority
         />
       </div>
       <InputForm imageUrl={imageUrl} />

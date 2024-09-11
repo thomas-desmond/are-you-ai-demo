@@ -12,6 +12,7 @@ const nextConfig = {
   images: {
     domains: ["imagedelivery.net"],
   },
+  reactStrictMode: false,
 };
 
 export default nextConfig;

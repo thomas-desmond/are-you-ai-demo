@@ -1,9 +1,12 @@
 "use client";
 import React, { useEffect } from "react";
 import { nanoid } from "nanoid";
-import { getAiSimilarity } from "@/lib/ai";
+import {
+  getAiDescriptionAndInsertToVectorize,
+  getAiSimilarity,
+} from "@/lib/ai";
 import Score from "./score";
-import { GuessData } from "@/types/guessData";
+import { SimilarityScore } from "@/types/similarityScore";
 
 export const runtime = "edge";
 
@@ -14,7 +17,25 @@ interface InputFormProps {
 }
 
 const InputForm: React.FC<InputFormProps> = (props) => {
-  const [scoreData, setScoreData] =  React.useState<GuessData>();
+  const [scoreData, setScoreData] = React.useState<SimilarityScore>();
+  const [aiImageDescription, setAiImageDescription] =
+    React.useState<string>("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const aiImageDescription = await getAiDescriptionAndInsertToVectorize(
+          sessionId,
+          props.imageUrl
+        );
+        setAiImageDescription(aiImageDescription);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -26,13 +47,24 @@ const InputForm: React.FC<InputFormProps> = (props) => {
     console.log("heading out to API");
     const data = await getAiSimilarity(sessionId, text);
     console.log("back from API");
-    setScoreData(data)
+    setScoreData(data);
   };
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <div className="m-auto w-1/2">
+          {aiImageDescription && (
+            <div className="pb-4">
+              <label className="mb-2 pb-4 text-gray-900 dark:text-white">
+                While you were waiting the AI has been hard at work and has come
+                up with a description for the image, now it&apos;s your turn.
+              </label>
+            </div>
+          )}
+          <div className="flex justify-center">
+            <Score scoreData={scoreData} />
+          </div>
           <label className="mb-2 text-sm font-medium text-gray-900 dark:text-white">
             Your AI Image Description
           </label>
@@ -50,9 +82,6 @@ const InputForm: React.FC<InputFormProps> = (props) => {
           </button>
         </div>
       </form>
-      <div className="m-auto w-1/2">
-        <Score scoreData={scoreData} />
-      </div>
     </div>
   );
 };

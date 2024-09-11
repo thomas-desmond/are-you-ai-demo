@@ -49,7 +49,13 @@ app.post('/getSimilarityScore', async (c: any) => {
 	const userVectorValues = await generateVectorEmbedding(c, guess);
 	console.log('Location 2');
 
-	const vectorQuery = await c.env.VECTORIZE.query(userVectorValues, { topK: 1, filter: { sessionId: sessionId } });
+
+	let vectorQuery = await c.env.VECTORIZE.query(userVectorValues, { topK: 1, filter: { sessionId: sessionId } });
+
+	while (vectorQuery.count === 0) {
+		await new Promise(resolve => setTimeout(resolve, 1000)); // Wait for 1 second
+		vectorQuery = await c.env.VECTORIZE.query(userVectorValues, { topK: 1, filter: { sessionId: sessionId } });
+	}
 	console.log('Location 3');
 
 	console.log(vectorQuery);

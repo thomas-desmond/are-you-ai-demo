@@ -1,5 +1,5 @@
 import { Hono } from 'hono';
-import { generateVectorEmbedding, getAiImageDescription, getAiImageDescriptionNew, getWelcomeMessage } from './utils';
+import { generateVectorEmbedding, getAiImageDescription } from './utils';
 import { cors } from 'hono/cors';
 
 const app = new Hono();
@@ -7,7 +7,7 @@ const app = new Hono();
 app.use(
 	'*',
 	cors({
-		origin: 'http://localhost:3000',
+		origin: '*',
 		allowHeaders: ['X-Custom-Header', 'Upgrade-Insecure-Requests', 'Content-Type'],
 		allowMethods: ['POST', 'GET'],
 		exposeHeaders: ['Content-Length', 'X-Kuma-Revision'],
@@ -16,24 +16,17 @@ app.use(
 	})
 );
 
-app.post('/getAiImageDescription', async (c: any) => {
+app.post('/aiImageDescription', async (c: any) => {
 	const body = await c.req.json();
-	console.log('body', body);
-	const encodedImage = body.encodedImage;
-	const aiGeneratedDescription = await getAiImageDescriptionNew(c, encodedImage);
-
-	return c.json({ aiImageDescription: aiGeneratedDescription });
-});
-
-app.post('/guess', async (c: any) => {
-	const body = await c.req.json();
+	const imageUrl = body.imageUrl;
 	const sessionId = body.sessionId;
-	const guess = body.text;
 
-	const aiGeneratedDescription = await getAiImageDescription(c);
-	console.log('Location 1');
+	const res = await fetch(imageUrl);
+    const blob = await res.arrayBuffer();
+	const encodedImage =  [...new Uint8Array(blob)]
+
+	const aiGeneratedDescription = await getAiImageDescription(c, encodedImage);
 	const aiVectorValues = await generateVectorEmbedding(c, aiGeneratedDescription);
-	console.log('Location 2');
 
 	await c.env.VECTORIZE.upsert([
 		{
@@ -43,34 +36,25 @@ app.post('/guess', async (c: any) => {
 		},
 	]);
 
-	console.log('Location 3');
+	return c.json({ aiImageDescription: aiGeneratedDescription });
+});
+
+app.post('/getSimilarityScore', async (c: any) => {
+	const body = await c.req.json();
+	const sessionId = body.sessionId;
+	const guess = body.text;
+
+	console.log('Location 1');
 
 	const userVectorValues = await generateVectorEmbedding(c, guess);
-	console.log('Location 4');
-
-	await new Promise<void>((resolve) => {
-		const waitTime = 5000; // 10 seconds
-		const interval = 2000; // 2 seconds
-
-		let counter = 0;
-		const intervalId = setInterval(() => {
-			console.log('Waiting...');
-			counter += interval;
-
-			if (counter >= waitTime) {
-				clearInterval(intervalId);
-				resolve();
-			}
-		}, interval);
-	});
+	console.log('Location 2');
 
 	const vectorQuery = await c.env.VECTORIZE.query(userVectorValues, { topK: 1, filter: { sessionId: sessionId } });
-	console.log('Location 5');
+	console.log('Location 3');
 
 	console.log(vectorQuery);
 
 	return c.json({
-		aiImageDescription: aiGeneratedDescription,
 		similarityScore: vectorQuery.matches[0].score,
 	});
 });

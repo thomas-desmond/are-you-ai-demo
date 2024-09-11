@@ -1,27 +1,4 @@
-async function getAiImageDescription(c: any): Promise<string> {
-	try {
-		const res = await fetch('https://imagedelivery.net/llMDWXFPgX44M9elMfQ9XA/1761b7e9-42ba-4081-ab48-06796d20b500/public');
-		const blob = await res.arrayBuffer();
-		const input = {
-			image: [...new Uint8Array(blob)],
-			prompt: 'Describe the image in a concise sentence',
-			max_tokens: 512,
-		};
-		const response = await c.env.AI.run('@cf/llava-hf/llava-1.5-7b-hf', input, {
-			gateway: {
-				id: 'are-you-ai-gateway',
-				skipCache: false,
-				cacheTtl: 3360,
-			},
-		});
-
-		return response.description;
-	} catch (error) {
-		return 'Error';
-	}
-}
-
-async function getAiImageDescriptionNew(c: any, encodedImage: any): Promise<string> {
+async function getAiImageDescription(c: any, encodedImage: any): Promise<string> {
 	try {
 		const input = {
 			image: encodedImage,
@@ -82,4 +59,4 @@ async function getWelcomeMessage(c: any): Promise<Response> {
 	}
 }
 
-export { getAiImageDescription, getAiImageDescriptionNew, generateVectorEmbedding, getWelcomeMessage };
+export { getAiImageDescription , generateVectorEmbedding, getWelcomeMessage };

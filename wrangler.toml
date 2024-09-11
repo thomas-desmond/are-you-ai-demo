@@ -1,5 +1,5 @@
 #:schema node_modules/wrangler/config-schema.json
-name = "are-you-ai"
+name = "are-you-ai-frontend"
 compatibility_date = "2024-08-21"
 compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = ".vercel/output/static"

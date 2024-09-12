@@ -56,7 +56,7 @@ const InputForm: React.FC<InputFormProps> = (props) => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <div className="m-auto w-1/2">
+        <div className="m-auto max-w-prose">
           {aiImageDescription && (
             <div className="pb-4">
               <label className="mb-2 pb-4 text-gray-900 dark:text-white">
@@ -100,7 +100,8 @@ const InputForm: React.FC<InputFormProps> = (props) => {
                     fill="currentFill"
                   />
                 </svg>
-                The slow part is waiting for the upsert of the AI image description into Vectorize...
+                The slow part is waiting for the upsert of the AI image
+                description into Vectorize...especially once metadata was added.
               </div>
             )}
             <button
@@ -110,6 +111,16 @@ const InputForm: React.FC<InputFormProps> = (props) => {
             >
               Submit
             </button>
+            {aiImageDescription && scoreData && (
+              <div className="flex flex-col justify-centerpy-2">
+                <button
+                  className="bg-orange-500 hover:bg-orange-700 text-white font-bold mt-2 py-2 px-4 rounded"
+                  onClick={() => window.location.reload()}
+                >
+                  Try Again
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </form>

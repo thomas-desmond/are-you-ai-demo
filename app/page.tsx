@@ -4,9 +4,6 @@ import Link from "next/link";
 
 export const runtime = "edge";
 
-const imageUrl =
-  "https://imagedelivery.net/llMDWXFPgX44M9elMfQ9XA/1761b7e9-42ba-4081-ab48-06796d20b500/public";
-
 export default function Home() {
   return (
     <div className="flex justify-center items-center h-screen">

@@ -1,12 +1,15 @@
+/* eslint-disable @next/next/no-img-element */
 import InputForm from "@/components/input-form";
+import { images } from "@/lib/images";
 import Image from "next/image";
 
 export const runtime = "edge";
 
-const imageUrl =
-  "https://imagedelivery.net/llMDWXFPgX44M9elMfQ9XA/1761b7e9-42ba-4081-ab48-06796d20b500/public";
-
 export default function Home() {
+  const randomNumber = Math.floor(Math.random() * 12) + 1;
+  const imageId = images[randomNumber];
+  const imageUrl = `https://imagedelivery.net/llMDWXFPgX44M9elMfQ9XA/${imageId}/public`;
+
   return (
     <div>
       <div className="flex flex-col items-center p-12">
@@ -16,12 +19,11 @@ export default function Home() {
           concise sentence. Using text-embeddings and a Vector database we will
           find out how similar you are to AI!
         </p>
-        <Image
+        <img
           src={imageUrl}
           width={300}
           height={250}
           alt="AI Generated Image"
-          priority
         />
       </div>
       <InputForm imageUrl={imageUrl} />

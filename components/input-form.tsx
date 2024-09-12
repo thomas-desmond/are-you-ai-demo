@@ -120,16 +120,16 @@ const InputForm: React.FC<InputFormProps> = (props) => {
                   className="bg-orange-500 hover:bg-orange-700 text-white font-bold mt-2 py-2 px-4 rounded"
                   onClick={() => window.location.reload()}
                 >
-                  Try Again
+                  Go Again
                 </button>
               </div>
             )}
           </div>
         </div>
       </form>
-      <div className="mt-8">
+      <div className="flex flex-col items-center justify-center mt-8">
         <button
-          className="flex items-center justify-center w-full py-2 text-lg font-bold text-white bg-blue-500 rounded-md focus:outline-none"
+          className="p-2 text-lg font-bold text-white bg-blue-500 rounded-md focus:outline-none"
           onClick={() => setIsCollapsed(!isCollapsed)}
         >
           {isCollapsed ? "How It Works" : "Show Less"}

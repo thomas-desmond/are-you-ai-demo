@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import React, { useEffect } from "react";
 import { nanoid } from "nanoid";
@@ -21,6 +22,7 @@ const InputForm: React.FC<InputFormProps> = (props) => {
   const [scoreData, setScoreData] = React.useState<SimilarityScore>();
   const [aiImageDescription, setAiImageDescription] =
     React.useState<string>("");
+  const [isCollapsed, setIsCollapsed] = React.useState<boolean>(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,13 +41,14 @@ const InputForm: React.FC<InputFormProps> = (props) => {
   }, []);
 
   const handleSubmit = async (e: any) => {
-    setIsLoading(true);
     e.preventDefault();
 
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
     const text = formData.get("message") as string;
+    if (!text) return;
 
+    setIsLoading(true);
     console.log("heading out to API");
     const data = await getAiSimilarity(sessionId, text);
     console.log("back from API");
@@ -124,6 +127,28 @@ const InputForm: React.FC<InputFormProps> = (props) => {
           </div>
         </div>
       </form>
+      <div className="mt-8">
+        <button
+          className="flex items-center justify-center w-full py-2 text-lg font-bold text-white bg-blue-500 rounded-md focus:outline-none"
+          onClick={() => setIsCollapsed(!isCollapsed)}
+        >
+          {isCollapsed ? "How It Works" : "Show Less"}
+        </button>
+        <div className={`${isCollapsed ? "hidden" : "block"} mt-4`}>
+          <img
+            src="/on-page-load.png"
+            width={1430}
+            height={704}
+            alt="AI Generated Image"
+          />
+          <img
+            src="/on-submission.png"
+            width={1355}
+            height={698}
+            alt="AI Generated Image"
+          />
+        </div>
+      </div>
     </div>
   );
 };

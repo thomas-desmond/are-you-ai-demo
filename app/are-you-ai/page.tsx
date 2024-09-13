@@ -12,7 +12,7 @@ export default function Home() {
 
   return (
     <div>
-      <div className="flex flex-col items-center p-12">
+      <div className="flex flex-col items-center">
         <h1 className="text-4xl font-bold mb-8">Are You AI?</h1>
         <p className="text-lg text-center mb-8 max-w-prose">
           It&rsquo;s you against the AI, describe the image below in a single

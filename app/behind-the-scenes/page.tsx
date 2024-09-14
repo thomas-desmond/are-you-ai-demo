@@ -20,10 +20,10 @@ export default function BehindTheScenes() {
       <div className="min-h-screen flex flex-col items-center">
         <div className="container mx-auto px-4 py-8">
           <h1 className="text-3xl font-bold mb-6">
-            Behind the Scenes: How "Are you AI?" Works
+            Behind the Scenes: How &quot;Are you AI?&quot; Works
           </h1>
           <h3 className="text-xl font-bold mb-6">
-            Taking advantage of Cloudflare's Developer Platform and Global
+            Taking advantage of Cloudflare&apos;s Developer Platform and Global
             Network
           </h3>
           <Card className="mb-8 shadow-lg">
@@ -48,7 +48,7 @@ export default function BehindTheScenes() {
             <CardHeader>
               <CardTitle>API Flow On Submit</CardTitle>
               <CardDescription>
-                What happens when you press "Submit"
+                What happens when you press &quot;Submit&quot;
               </CardDescription>
             </CardHeader>
             <CardContent>

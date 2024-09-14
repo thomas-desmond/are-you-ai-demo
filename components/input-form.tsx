@@ -8,7 +8,10 @@ import {
 } from "@/lib/ai";
 import Score from "./score";
 import { SimilarityScore } from "@/types/similarityScore";
-import LoadingSpinner from "./loading-spinner";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
+import { LoadingSpinner } from "./ui/loadingSpinner";
+import { ResultsDisplay } from "./ui/resultsDisplay";
 
 export const runtime = "edge";
 
@@ -20,7 +23,9 @@ interface InputFormProps {
 
 const InputForm: React.FC<InputFormProps> = (props) => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [scoreData, setScoreData] = React.useState<SimilarityScore>();
+  const [submitted, setSubmitted] = React.useState<boolean>(false);
+  const [similarityScore, setsimilarityScore] = React.useState<number>();
+  const [userDescription, setUserDescription] = React.useState<string>();
   const [aiImageDescription, setAiImageDescription] =
     React.useState<string>("");
 
@@ -42,6 +47,7 @@ const InputForm: React.FC<InputFormProps> = (props) => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    console.log("submitting form");
 
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
@@ -49,64 +55,59 @@ const InputForm: React.FC<InputFormProps> = (props) => {
     if (!text) return;
 
     setIsLoading(true);
+    setSubmitted(true);
+    setUserDescription(text);
     console.log("heading out to API");
-    const data = await getAiSimilarity(sessionId, text);
+    const score = await getAiSimilarity(sessionId, text);
     console.log("back from API");
-    setScoreData(data);
+    setsimilarityScore(score);
     setIsLoading(false);
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div className="m-auto max-w-prose">
-          {aiImageDescription && (
-            <div className="pb-4">
-              <label className="mb-2 pb-4 text-gray-900 dark:text-white">
-                While you were waiting the llava-1.5-7b-hf image to text model
-                has been hard at work and has come up with a description for the
-                image, now it&apos;s your turn.
-              </label>
-            </div>
-          )}
-          <div className="flex justify-center text-center">
-            <Score
-              scoreData={scoreData}
-              aiImageDescription={aiImageDescription}
+    <>
+      <div className="max-w-md rounded-lg shadow-xl">
+        <img
+          src={props.imageUrl}
+          alt="AI Generated Image"
+          width={336}
+          height={187}
+          className="rounded-lg shadow-xl"
+        />
+      </div>
+
+      {!submitted && (
+        <div className="w-full max-w-md mt-2 bg-white p-6 rounded-lg shadow-xl flex justify-center">
+          <form className="w-full" onSubmit={handleSubmit}>
+            <Input
+              placeholder="Describe what you see in the image..."
+              className="mb-4"
+              id="message"
+              name="message"
             />
-          </div>
-          <label className="mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Your AI Image Description
-          </label>
-          <input
-            id="message"
-            name="message"
-            className="block p-2.5  w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Write a consise description of the image above..."
-          ></input>
-          <div className="flex flex-col justify-center content-center">
-            {isLoading && <LoadingSpinner />}
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold mt-2 py-2 px-4 rounded"
-              type="submit"
-              disabled={isLoading}
-            >
-              Submit
-            </button>
-            {aiImageDescription && scoreData && (
-              <div className="flex flex-col justify-centerpy-2">
-                <button
-                  className="bg-orange-500 hover:bg-orange-700 text-white font-bold mt-2 py-2 px-4 rounded"
-                  onClick={() => window.location.reload()}
-                >
-                  Go Again
-                </button>
-              </div>
-            )}
-          </div>
+            <Button type="submit" className="w-full" disabled={isLoading}>
+              Submit Description
+            </Button>
+          </form>
         </div>
-      </form>
-    </div>
+      )}
+      {isLoading && <LoadingSpinner className="mt-4" size={48} />}
+      {similarityScore && aiImageDescription && (
+        <>
+          <ResultsDisplay
+            userDescription={userDescription as string}
+            aiDescription={aiImageDescription}
+            similarity={similarityScore}
+          />
+          <Button
+            onClick={() => window.location.reload()}
+            className="max-w-md my-4"
+          >
+            Go Again
+          </Button>
+        </>
+      )}
+    </>
   );
 };
 

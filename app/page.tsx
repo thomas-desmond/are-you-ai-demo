@@ -6,8 +6,8 @@ export const runtime = "edge";
 
 export default function Home() {
   return (
-    <div className="h-full">
-      <div className="flex justify-center pt-28">
+    <div className="h-screen flex flex-col items-center justify-center">
+      <div className="flex justify-center">
         <Link
           className="bg-orange-500 text-white py-4 px-8 text-4xl rounded animate-pulse"
           href="/are-you-ai"

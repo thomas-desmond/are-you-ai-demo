@@ -17,7 +17,7 @@ const Score: React.FC<ScoreProps> = (props) => {
               Looks like you are {" "} {(props.scoreData.similarityScore * 100).toFixed(3)}% AI.
             </p>
             <p className="text-gray-900 dark:text-white py-2">
-              How AI described the image: {props.aiImageDescription}
+              AI&apos;s Description: {props.aiImageDescription}
             </p>
         </div>
       )}

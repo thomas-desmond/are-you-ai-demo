@@ -3,15 +3,13 @@ import React from "react";
 
 const Header: React.FC = () => {
   return (
-    <header>
       <div>
-        <Link href="/">
-          <div className="flex flex-wrap justify-center md:justify-end p-2">
+        <div className="flex flex-wrap justify-center md:justify-end pr-2">
+          <Link href="/">
             <img src="/cloudflare-logo.png" className="h-24" alt="Logo" />
-          </div>
-        </Link>
+          </Link>
+        </div>
       </div>
-    </header>
   );
 };
 

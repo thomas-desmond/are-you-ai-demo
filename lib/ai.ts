@@ -4,7 +4,7 @@ import { SimilarityScore } from "@/types/similarityScore";
 async function getAiSimilarity(
   sessionId: string,
   text: string
-): Promise<SimilarityScore> {
+): Promise<number> {
   const response = await fetch("https://are-you-ai-api.thomas-development.workers.dev/getSimilarityScore", {
     method: "POST",
     headers: {
@@ -15,7 +15,7 @@ async function getAiSimilarity(
 
   const data = (await response.json()) as SimilarityScore;
 
-  return data;
+  return data.similarityScore;
 }
 
 async function getAiDescriptionAndInsertToVectorize(

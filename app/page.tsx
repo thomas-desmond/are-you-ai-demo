@@ -1,6 +1,6 @@
-import InputForm from "@/components/input-form";
 import Image from "next/image";
 import Link from "next/link";
+import BehindTheScenesButton from "@/components/behind-the-scenes/behindTheScenesButton";
 
 export const runtime = "edge";
 
@@ -28,6 +28,7 @@ export default function Home() {
           />
         </div>
       </div>
+      <BehindTheScenesButton />
     </div>
   );
 }

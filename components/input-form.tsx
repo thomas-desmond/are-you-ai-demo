@@ -6,8 +6,6 @@ import {
   getAiDescriptionAndInsertToVectorize,
   getAiSimilarity,
 } from "@/lib/ai";
-import Score from "./score";
-import { SimilarityScore } from "@/types/similarityScore";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { LoadingSpinner } from "./ui/loadingSpinner";
@@ -60,7 +58,7 @@ const InputForm: React.FC<InputFormProps> = (props) => {
     console.log("heading out to API");
     const score = await getAiSimilarity(sessionId, text);
     console.log("back from API");
-    setsimilarityScore(score);
+    setsimilarityScore(parseFloat((score * 100).toFixed(3)));
     setIsLoading(false);
   };
 
@@ -80,7 +78,7 @@ const InputForm: React.FC<InputFormProps> = (props) => {
         <div className="w-full max-w-md mt-2 bg-white p-6 rounded-lg shadow-xl flex justify-center">
           <form className="w-full" onSubmit={handleSubmit}>
             <Input
-              placeholder="Describe what you see in the image..."
+              placeholder="Give a consise description of the image..."
               className="mb-4"
               id="message"
               name="message"

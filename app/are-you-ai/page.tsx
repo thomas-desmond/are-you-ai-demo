@@ -11,7 +11,8 @@ import Link from "next/link";
 export const runtime = "edge";
 
 export default function Home() {
-  const randomNumber = Math.floor(Math.random() * 12) + 1;
+  const randomNumber = Math.floor(Math.random() * 12);
+  
   const imageId = images[randomNumber];
   const imageUrl = `https://imagedelivery.net/llMDWXFPgX44M9elMfQ9XA/${imageId}/public`;
 

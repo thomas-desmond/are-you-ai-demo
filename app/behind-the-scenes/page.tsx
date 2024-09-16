@@ -18,7 +18,7 @@ export default function BehindTheScenes() {
         <Button className="m-2">&#x2190; Back to the App</Button>
       </Link>
       <div className="min-h-screen flex flex-col items-center">
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 py-8 flex flex-col items-center">
           <h1 className="text-3xl font-bold mb-6">
             Behind the Scenes: How &quot;Are you AI?&quot; Works
           </h1>
@@ -26,36 +26,72 @@ export default function BehindTheScenes() {
             Taking advantage of Cloudflare&apos;s Developer Platform and Global
             Network
           </h3>
-          <Card className="mb-8 shadow-lg">
+          <Card className="max-w-4xl mb-8 shadow-lg">
             <CardHeader>
-              <CardTitle>On Page Load</CardTitle>
+              <CardTitle>Serverless Global API</CardTitle>
               <CardDescription>
-                What happens when the page first loads
+                Serverless globally-deployed APIs offer a cost-effective,
+                scalable, and agile approach to building modern applications and
+                services, allowing organizations to focus on delivering value to
+                their users without being encumbered by the complexities of
+                managing infrastructure.
               </CardDescription>
             </CardHeader>
             <CardContent>
               <img
-                src="/on-page-load.png"
-                width={1430}
-                height={704}
-                alt="On Page Load Flow"
+                src="/region-earth.webp"
+                width={1999}
+                height={1126}
+                alt="Global Serverless API"
                 className="rounded"
               />
             </CardContent>
           </Card>
 
-          <Card className="mb-8 shadow-lg">
+          <Card className="max-w-4xl mb-8 shadow-lg">
             <CardHeader>
-              <CardTitle>API Flow On Submit</CardTitle>
+              <CardTitle>Composable AI Architecture</CardTitle>
               <CardDescription>
-                What happens when you press &quot;Submit&quot;
+                The AI market demands organizations to stay updated with the
+                latest innovations. Composability, data portability, and
+                standard APIs are crucial for mixing and matching AI components,
+                facilitating seamless data exchange, ensuring interoperability,
+                and fostering flexibility. Cloudflare's AI platform offers a
+                composable AI infrastructure with support for standard
+                interfaces and simplified development.
               </CardDescription>
             </CardHeader>
             <CardContent>
               <img
-                src="/on-submission.png"
-                width={1355}
-                height={698}
+                src="/ai-composable.png"
+                width={1200}
+                height={639}
+                alt="On Submission API Flow"
+                className="rounded"
+              />
+            </CardContent>
+          </Card>
+
+          <Card className="max-w-4xl mb-8 shadow-lg">
+            <CardHeader>
+              <CardTitle>AI Observability</CardTitle>
+              <CardDescription>
+                Using a forward proxy can mitigate challenges like
+                fragmentation, availability, lack of observability, lack of cost
+                control, and more. Cloudflare AI Gateway is positioned between
+                the service making inference requests and the inference service
+                platform, it serves as a single point for observability and
+                control. By shifting features such as rate limiting, caching,
+                and error handling to the proxy layer, organizations can apply
+                unified configurations across services and inference service
+                providers.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <img
+                src="/ai-observability.png"
+                width={1200}
+                height={380}
                 alt="On Submission API Flow"
                 className="rounded"
               />

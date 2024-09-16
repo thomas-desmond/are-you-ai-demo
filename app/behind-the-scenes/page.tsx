@@ -56,7 +56,7 @@ export default function BehindTheScenes() {
                 latest innovations. Composability, data portability, and
                 standard APIs are crucial for mixing and matching AI components,
                 facilitating seamless data exchange, ensuring interoperability,
-                and fostering flexibility. Cloudflare's AI platform offers a
+                and fostering flexibility. Cloudflare&apos;s AI platform offers a
                 composable AI infrastructure with support for standard
                 interfaces and simplified development.
               </CardDescription>

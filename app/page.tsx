@@ -1,6 +1,5 @@
-import Image from "next/image";
-import Link from "next/link";
-import BehindTheScenesButton from "@/components/behind-the-scenes/behindTheScenesButton";
+import BehindTheScenesButton from "@/components/behind-the-scenes/BehindTheScenesButton";
+import AppInfoCard from "@/components/AppInfoCard";
 
 export const runtime = "edge";
 
@@ -8,25 +7,7 @@ export default function Home() {
   return (
     <div className="h-screen flex flex-col items-center justify-center">
       <div className="flex justify-center">
-        <Link
-          className="bg-orange-500 text-white py-4 px-8 text-4xl rounded animate-pulse"
-          href="/are-you-ai"
-        >
-          Are you AI?
-        </Link>
-      </div>
-      <div className="flex flex-col justify-center items-center mt-8">
-        <h1 className="text-xl font-bold">Powered by Cloudflare</h1>
-        <div></div>
-        <div className="flex justify-center mt-4">
-          <Image
-            src="/cloudflare-logo.png"
-            alt="Cloudflare Pages Logo"
-            width={272}
-            height={116}
-            className="mx-2"
-          />
-        </div>
+        <AppInfoCard />
       </div>
       <BehindTheScenesButton />
     </div>

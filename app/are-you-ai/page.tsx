@@ -1,11 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import HowItWorks from "@/components/how-it-works";
 import InputForm from "@/components/input-form";
 import { images } from "@/lib/images";
 import Image from "next/image";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import BehindTheScenesButton from "@/components/behind-the-scenes/behindTheScenesButton";
+import BehindTheScenesButton from "@/components/behind-the-scenes/BehindTheScenesButton";
 import Link from "next/link";
 
 export const runtime = "edge";
@@ -30,7 +28,6 @@ export default function Home() {
             Describe the image you see below
           </p>
         </div>
-
         <InputForm imageUrl={imageUrl} />
         <BehindTheScenesButton />
       </div>

@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import ViewSourceCode from "@/components/behind-the-scenes/ViewSourceCode";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -45,6 +46,9 @@ export default function BehindTheScenes() {
                 alt="Global Serverless API"
                 className="rounded"
               />
+              <Link href="https://developers.cloudflare.com/reference-architecture/diagrams/serverless/serverless-global-apis/">
+                <Button className="mt-4">Learn More</Button>
+              </Link>
             </CardContent>
           </Card>
 
@@ -56,8 +60,8 @@ export default function BehindTheScenes() {
                 latest innovations. Composability, data portability, and
                 standard APIs are crucial for mixing and matching AI components,
                 facilitating seamless data exchange, ensuring interoperability,
-                and fostering flexibility. Cloudflare&apos;s AI platform offers a
-                composable AI infrastructure with support for standard
+                and fostering flexibility. Cloudflare&apos;s AI platform offers
+                a composable AI infrastructure with support for standard
                 interfaces and simplified development.
               </CardDescription>
             </CardHeader>
@@ -66,9 +70,12 @@ export default function BehindTheScenes() {
                 src="/ai-composable.png"
                 width={1200}
                 height={639}
-                alt="On Submission API Flow"
+                alt="Composable AI Reference Architecture Diagram"
                 className="rounded"
               />
+              <Link href="https://developers.cloudflare.com/reference-architecture/diagrams/ai/ai-composable/">
+                <Button className="mt-4">Learn More</Button>
+              </Link>
             </CardContent>
           </Card>
 
@@ -92,11 +99,15 @@ export default function BehindTheScenes() {
                 src="/ai-observability.png"
                 width={1200}
                 height={380}
-                alt="On Submission API Flow"
+                alt="AI Observability Reference Architecture Diagram"
                 className="rounded"
               />
+              <Link href="https://developers.cloudflare.com/reference-architecture/diagrams/ai/ai-multivendor-observability-control/">
+                <Button className="mt-4">Learn More</Button>
+              </Link>
             </CardContent>
           </Card>
+          <ViewSourceCode />
         </div>
       </div>
     </>

@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import InputForm from "@/components/input-form";
 import { images } from "@/lib/images";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import BehindTheScenesButton from "@/components/behind-the-scenes/BehindTheScenesButton";
 import Link from "next/link";

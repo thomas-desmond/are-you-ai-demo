@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import ViewSourceCode from "@/components/behind-the-scenes/ViewSourceCode";
+import ViewSourceCode from "@/components/behindTheScenes/viewSourceCode";
 import { Button } from "@/components/ui/button";
 import {
   Card,

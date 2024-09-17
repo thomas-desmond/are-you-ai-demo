@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import InputForm from "@/components/input-form";
 import { images } from "@/lib/images";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import BehindTheScenesButton from "@/components/behind-the-scenes/BehindTheScenesButton";
+import BehindTheScenesButton from "@/components/behindTheScenes/behindTheScenesButton";
+import InputForm from "@/components/inputForm";
 
 export const runtime = "edge";
 

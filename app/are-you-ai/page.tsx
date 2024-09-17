@@ -2,8 +2,8 @@
 import InputForm from "@/components/input-form";
 import { images } from "@/lib/images";
 import { Button } from "@/components/ui/button";
-import BehindTheScenesButton from "@/components/behind-the-scenes/BehindTheScenesButton";
 import Link from "next/link";
+import BehindTheScenesButton from "@/components/behind-the-scenes/BehindTheScenesButton";
 
 export const runtime = "edge";
 

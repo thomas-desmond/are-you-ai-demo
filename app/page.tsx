@@ -1,4 +1,4 @@
-import AppInfoCard from "@/components/appInfoCard";
+import AppInfoCard from "@/components/AppInfoCard";
 import BehindTheScenesButton from "@/components/behindTheScenes/behindTheScenesButton";
 
 export const runtime = "edge";

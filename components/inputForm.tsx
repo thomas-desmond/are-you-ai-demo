@@ -10,6 +10,7 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { LoadingSpinner } from "./ui/loadingSpinner";
 import { ResultsDisplay } from "./ui/resultsDisplay";
+import { useRouter } from "next/navigation";
 
 export const runtime = "edge";
 
@@ -27,8 +28,13 @@ const InputForm: React.FC<InputFormProps> = (props) => {
   const [aiImageDescription, setAiImageDescription] =
     React.useState<string>("");
 
+  const router = useRouter();
+
   useEffect(() => {
     const fetchData = async () => {
+      console.log("fetching data", props.imageUrl);
+      if (!props.imageUrl) return;
+      console.log("Fetching image description for AI");
       try {
         const aiImageDescription = await getAiDescriptionAndInsertToVectorize(
           sessionId,
@@ -86,6 +92,7 @@ const InputForm: React.FC<InputFormProps> = (props) => {
             <Button type="submit" className="w-full" disabled={isLoading}>
               Submit Description
             </Button>
+            {aiImageDescription}
           </form>
         </div>
       )}
@@ -98,7 +105,7 @@ const InputForm: React.FC<InputFormProps> = (props) => {
             similarity={similarityScore}
           />
           <Button
-            onClick={() => window.location.reload()}
+            onClick={() => router.replace("/are-you-ai")}
             className="max-w-md my-4"
           >
             Go Again

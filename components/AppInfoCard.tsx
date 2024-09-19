@@ -7,9 +7,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Earth, Database, Brain, Server } from "lucide-react";
+import { nanoid } from "nanoid";
 import Link from "next/link";
 
 export default function AppInfoCard() {
+
+  const session = nanoid();
   const features = [
     {
       icon: Earth,
@@ -67,7 +70,7 @@ export default function AppInfoCard() {
       <CardFooter className="flex flex-col justify-center">
         <Link
           className="bg-orange-500 text-white py-4 px-8 text-2xl rounded animate-pulse"
-          href="/are-you-ai"
+          href={`/are-you-ai/${session}`}
         >
           Are You AI?
         </Link>

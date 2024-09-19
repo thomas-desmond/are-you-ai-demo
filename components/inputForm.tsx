@@ -92,7 +92,6 @@ const InputForm: React.FC<InputFormProps> = (props) => {
             <Button type="submit" className="w-full" disabled={isLoading}>
               Submit Description
             </Button>
-            {aiImageDescription}
           </form>
         </div>
       )}

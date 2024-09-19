@@ -69,7 +69,7 @@ export default function AppInfoCard() {
       </CardContent>
       <CardFooter className="flex flex-col justify-center">
         <Link
-          className="bg-orange-500 text-white py-4 px-8 text-2xl rounded animate-pulse"
+          className="bg-[#F6821F] text-white py-4 px-8 text-2xl rounded animate-pulse"
           href={`/are-you-ai`}
         >
           Are You AI?

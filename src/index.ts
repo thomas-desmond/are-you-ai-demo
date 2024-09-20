@@ -1,5 +1,5 @@
 import { Hono } from 'hono';
-import { generateVectorEmbedding, getAiImageDescription } from './utils';
+import { generateVectorEmbedding, getAiImageDescription, getRandomImage } from './utils/aiUtils';
 import { cors } from 'hono/cors';
 
 const app = new Hono();
@@ -22,8 +22,8 @@ app.post('/aiImageDescription', async (c: any) => {
 	const sessionId = body.sessionId;
 
 	const res = await fetch(imageUrl);
-    const blob = await res.arrayBuffer();
-	const encodedImage =  [...new Uint8Array(blob)]
+	const blob = await res.arrayBuffer();
+	const encodedImage = [...new Uint8Array(blob)];
 
 	const aiGeneratedDescription = await getAiImageDescription(c, encodedImage);
 	const aiVectorValues = await generateVectorEmbedding(c, aiGeneratedDescription);
@@ -49,11 +49,10 @@ app.post('/getSimilarityScore', async (c: any) => {
 	const userVectorValues = await generateVectorEmbedding(c, guess);
 	console.log('Location 2');
 
-
 	let vectorQuery = await c.env.VECTORIZE.query(userVectorValues, { topK: 1, filter: { sessionId: sessionId } });
 
 	while (vectorQuery.count === 0) {
-		await new Promise(resolve => setTimeout(resolve, 1000)); // Wait for 1 second
+		await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
 		vectorQuery = await c.env.VECTORIZE.query(userVectorValues, { topK: 1, filter: { sessionId: sessionId } });
 	}
 	console.log('Location 3');
@@ -63,6 +62,21 @@ app.post('/getSimilarityScore', async (c: any) => {
 	return c.json({
 		similarityScore: vectorQuery.matches[0].score,
 	});
+});
+
+app.get('/randomImageUrl', async (c: any) => {
+	console.log('Location 1');
+	const data = await getRandomImage(c)
+
+	if (data.success) {
+		return c.json({
+			imageUrl: data.result?.variants?.[0] ?? 'defaultImageUrl',
+		});
+	} else {
+		return c.json({
+			error: 'Image upload failed',
+		});
+	}
 });
 
 export default app;

@@ -105,7 +105,7 @@ const InputForm: React.FC<InputFormProps> = (props) => {
             aiDescription={aiImageDescription}
             similarity={similarityScore}
           />
-          <Link href={`are-you-ai/${newSession}`}>
+          <Link href={`/${newSession}`}>
             <Button className="max-w-md my-4">Go Again</Button>
           </Link>
         </>

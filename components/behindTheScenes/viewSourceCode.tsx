@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function ViewSourceCode({}) {
   return (
-    <div className="bg-white rounded-lg p-6 shadow-lg">
+    <div className="bg-white rounded-lg mb-4 p-6 shadow-lg">
       <h2 className="text-2xl font-bold mb-4">View the Source Code</h2>
       <div className="space-y-4">
         <Link
@@ -12,7 +12,7 @@ export default function ViewSourceCode({}) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Button variant="outline" className="w-full mb-2">
+          <Button variant="outline" className="bg-[#F6821F] text-black w-full mb-2">
             <Github className="mr-2 h-4 w-4" />
             Frontend Repository
           </Button>
@@ -22,7 +22,7 @@ export default function ViewSourceCode({}) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Button variant="outline" className="w-full mb-2">
+          <Button variant="outline" className="bg-[#F6821F] text-black w-full mb-2">
             <Github className="mr-2 h-4 w-4" />
             API Repository
           </Button>

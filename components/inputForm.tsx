@@ -110,6 +110,9 @@ const InputForm: React.FC<InputFormProps> = (props) => {
           </Link>
         </>
       )}
+                <Link href={`/are-you-ai/${newSession}`}>
+            <Button className="max-w-md my-4">Go Again</Button>
+          </Link>
     </>
   );
 };

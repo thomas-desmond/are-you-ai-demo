@@ -14,10 +14,11 @@
     "@cloudflare/workers-types": "^4.20240821.1",
     "typescript": "^5.5.2",
     "vitest": "1.5.0",
-    "wrangler": "^3.60.3"
+    "wrangler": "^3.78.3"
   },
   "dependencies": {
     "@cloudflare/ai": "^1.2.2",
-    "hono": "^4.5.8"
+    "hono": "^4.5.8",
+    "nanoid": "^5.0.7"
   }
 }

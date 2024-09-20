@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import Footer from "@/components/ui/footer";
 import Link from "next/link";
 
 export const runtime = "edge";
@@ -18,7 +19,7 @@ export default function BehindTheScenes() {
       <Link href="/are-you-ai">
         <Button className="m-2">&#x2190; Back to the App</Button>
       </Link>
-      <div className="min-h-screen flex flex-col items-center">
+      <div className="flex flex-col items-center">
         <div className="container mx-auto px-4 py-8 flex flex-col items-center">
           <h1 className="text-3xl font-bold mb-6">
             Behind the Scenes: How &quot;Are you AI?&quot; Works
@@ -27,6 +28,7 @@ export default function BehindTheScenes() {
             Taking advantage of Cloudflare&apos;s Developer Platform and Global
             Network
           </h3>
+          <ViewSourceCode />
           <Card className="max-w-4xl mb-8 shadow-lg">
             <CardHeader>
               <CardTitle>Serverless Global API</CardTitle>
@@ -47,7 +49,7 @@ export default function BehindTheScenes() {
                 className="rounded"
               />
               <Link href="https://developers.cloudflare.com/reference-architecture/diagrams/serverless/serverless-global-apis/">
-                <Button className="mt-4">Learn More</Button>
+                <Button className="bg-[#F6821F] text-black  mt-4">Learn More</Button>
               </Link>
             </CardContent>
           </Card>
@@ -74,7 +76,7 @@ export default function BehindTheScenes() {
                 className="rounded"
               />
               <Link href="https://developers.cloudflare.com/reference-architecture/diagrams/ai/ai-composable/">
-                <Button className="mt-4">Learn More</Button>
+                <Button className="bg-[#F6821F] text-black mt-4">Learn More</Button>
               </Link>
             </CardContent>
           </Card>
@@ -103,11 +105,10 @@ export default function BehindTheScenes() {
                 className="rounded"
               />
               <Link href="https://developers.cloudflare.com/reference-architecture/diagrams/ai/ai-multivendor-observability-control/">
-                <Button className="mt-4">Learn More</Button>
+                <Button className="bg-[#F6821F] text-black mt-4">Learn More</Button>
               </Link>
             </CardContent>
           </Card>
-          <ViewSourceCode />
         </div>
       </div>
     </>

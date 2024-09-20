@@ -2,7 +2,6 @@
 import { images } from "@/lib/images";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import BehindTheScenesButton from "@/components/behindTheScenes/behindTheScenesButton";
 import InputForm from "@/components/inputForm";
 import { getRandomAIGeneratedImage } from "@/lib/ai";
 
@@ -21,7 +20,7 @@ export default async function Home() {
           <Button>Back to Home</Button>
         </Link>
       </div>
-      <div className="min-h-screen flex flex-col items-center justify-center pt-4">
+      <div className="min-h-full flex flex-col items-center justify-center pt-4">
         <div className="mb-4 text-center">
           <h1 className="text-4xl font-bold text-gray-800">Are you AI?</h1>
           <p className="text-xl text-gray-600">
@@ -29,7 +28,6 @@ export default async function Home() {
           </p>
         </div>
         <InputForm imageUrl={imageUrl} />
-        <BehindTheScenesButton />
       </div>
     </>
   );

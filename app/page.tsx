@@ -1,15 +1,11 @@
 import AppInfoCard from "@/components/AppInfoCard";
-import BehindTheScenesButton from "@/components/behindTheScenes/behindTheScenesButton";
 
 export const runtime = "edge";
 
 export default function Home() {
   return (
-    <div className="h-screen flex flex-col items-center justify-center">
-      <div className="flex justify-center">
+    <div className="flex flex-col min-h-full items-center justify-center">
         <AppInfoCard />
-      </div>
-      <BehindTheScenesButton />
     </div>
   );
 }

@@ -8,7 +8,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import Footer from "@/components/ui/footer";
 import Link from "next/link";
 
 export const runtime = "edge";
@@ -16,8 +15,8 @@ export const runtime = "edge";
 export default function BehindTheScenes() {
   return (
     <>
-      <Link href="/are-you-ai">
-        <Button className="m-2">&#x2190; Back to the App</Button>
+      <Link href="/">
+        <Button className="m-2">&#x2190; Back Home</Button>
       </Link>
       <div className="flex flex-col items-center">
         <div className="container mx-auto px-4 py-8 flex flex-col items-center">

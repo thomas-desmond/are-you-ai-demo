@@ -16,7 +16,6 @@ import Link from "next/link";
 export const runtime = "edge";
 
 const sessionId = nanoid();
-const newSession = nanoid();
 
 interface InputFormProps {
   imageUrl: string;
@@ -29,10 +28,12 @@ const InputForm: React.FC<InputFormProps> = (props) => {
   const [userDescription, setUserDescription] = React.useState<string>();
   const [aiImageDescription, setAiImageDescription] =
     React.useState<string>("");
+  const [nextSession, setNextSession] = React.useState<string>();
 
   const router = useRouter();
 
   useEffect(() => {
+    setNextSession(nanoid());
     const fetchData = async () => {
       console.log("fetching data", props.imageUrl);
       if (!props.imageUrl) return;
@@ -105,14 +106,11 @@ const InputForm: React.FC<InputFormProps> = (props) => {
             aiDescription={aiImageDescription}
             similarity={similarityScore}
           />
-          <Link href={`/${newSession}`}>
+          <Link href={`/${nextSession}`}>
             <Button className="max-w-md my-4">Go Again</Button>
           </Link>
         </>
       )}
-                <Link href={`/are-you-ai/${newSession}`}>
-            <Button className="max-w-md my-4">Go Again</Button>
-          </Link>
     </>
   );
 };

@@ -11,10 +11,12 @@ import { Button } from "./ui/button";
 import { LoadingSpinner } from "./ui/loadingSpinner";
 import { ResultsDisplay } from "./ui/resultsDisplay";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export const runtime = "edge";
 
 const sessionId = nanoid();
+const newSession = nanoid();
 
 interface InputFormProps {
   imageUrl: string;
@@ -103,12 +105,9 @@ const InputForm: React.FC<InputFormProps> = (props) => {
             aiDescription={aiImageDescription}
             similarity={similarityScore}
           />
-          <Button
-            onClick={() => router.refresh()}
-            className="max-w-md my-4"
-          >
-            Go Again
-          </Button>
+          <Link href={`are-you-ai/${newSession}`}>
+            <Button className="max-w-md my-4">Go Again</Button>
+          </Link>
         </>
       )}
     </>

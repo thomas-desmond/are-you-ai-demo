@@ -104,7 +104,7 @@ const InputForm: React.FC<InputFormProps> = (props) => {
             similarity={similarityScore}
           />
           <Button
-            onClick={() => router.replace("/are-you-ai")}
+            onClick={() => router.refresh()}
             className="max-w-md my-4"
           >
             Go Again

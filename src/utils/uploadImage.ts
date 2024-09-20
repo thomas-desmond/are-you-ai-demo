@@ -9,7 +9,7 @@ export async function uploadToCloudflareImages(c: Context, encodedImage: Uint8Ar
 
 
 	const formData = new FormData();
-	formData.append('file', new File([encodedImage], `${imageName}.png`));
+	formData.append('file', new File([encodedImage], `${imageName}.jpg`));
 	formData.append('requireSignedURLs', 'false');
 
 	const uploadResponse = await fetch(apiUrl, {

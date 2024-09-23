@@ -1,4 +1,23 @@
 export function getRandomPrompt() {
+	const attributes = [
+		'angry',
+		'happy',
+		'dancing',
+		'sad',
+		'excited',
+		'frustrated',
+		'tired',
+		'silly',
+		'gold',
+		'rockstar',
+		'sleeping',
+		'silver',
+		'biking',
+		'artistic',
+		'hipster',
+		'cowboy',
+		'hula hooping',
+	];
 	const creatures = [
 		'dog',
 		'cat',
@@ -58,25 +77,6 @@ export function getRandomPrompt() {
 		'in a sunset',
 		'in a sunrise',
 	];
-	const attributes = [
-		'angry',
-		'happy',
-		'dancing',
-		'sad',
-		'excited',
-		'frustrated',
-		'tired',
-		'silly',
-		'gold',
-		'rockstar',
-		'sleeping',
-		'silver',
-		'biking',
-		'artistic',
-		'hipster',
-		'cowboy',
-		'hula hooping',
-	];
 	const actions = [
 		'buying a house',
 		'applying for a job',
@@ -132,8 +132,8 @@ export function getRandomPrompt() {
 	return [
 		'a',
 		getRandomElement(attributes),
-		getRandomElement(background),
 		getRandomElement(creatures),
+		getRandomElement(background),
 		getRandomElement(actions),
 		'in the style of',
 		getRandomElement(style),

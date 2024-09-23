@@ -46,9 +46,6 @@ async function getRandomAIGeneratedImage(): Promise<string> {
   });
   
   const data = await response.json() as any;
-  console.log("response", data);
-
-  // const data = (await response.json()) as any;
 
   return data.imageUrl;
 }

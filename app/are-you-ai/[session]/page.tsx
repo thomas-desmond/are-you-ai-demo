@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import { images } from "@/lib/images";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import InputForm from "@/components/inputForm";
@@ -7,10 +6,7 @@ import { getRandomAIGeneratedImage } from "@/lib/ai";
 
 export const runtime = "edge";
 
-export default async function Home() {
-  const randomNumber = Math.floor(Math.random() * 12);
-  
-  const imageId = images[randomNumber];
+export default async function Home() {  
   const imageUrl = await getRandomAIGeneratedImage();
 
   return (

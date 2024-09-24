@@ -9,11 +9,6 @@ compatibility_flags = ["nodejs_compat"]
 [ai]
 binding = "AI"
 
-[[d1_databases]]
-binding = "DB" # i.e. available in your Worker on env.DB
-database_name = "are-you-ai-rag"
-database_id = "8c52ad7d-01d9-46b7-a7de-daa595dc59b8"
-
 [[vectorize]]
 binding = "VECTORIZE"
 index_name = "are-you-ai"

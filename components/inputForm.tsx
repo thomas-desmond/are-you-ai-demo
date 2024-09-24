@@ -70,7 +70,6 @@ const InputForm: React.FC<InputFormProps> = (props) => {
 
   return (
     <>
-      <div className="max-w-md rounded-lg shadow-xl">
         <Image
           src={props.imageUrl}
           alt="AI Generated Image"
@@ -79,7 +78,6 @@ const InputForm: React.FC<InputFormProps> = (props) => {
           className="rounded-lg shadow-xl"
           priority
         />
-      </div>
 
       {!submitted && (
         <div className="w-full max-w-md mt-2 bg-white p-6 rounded-lg shadow-xl flex justify-center">

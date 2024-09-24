@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 import React, { useEffect } from "react";
 import { nanoid } from "nanoid";
@@ -10,8 +9,8 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { LoadingSpinner } from "./ui/loadingSpinner";
 import { ResultsDisplay } from "./ui/resultsDisplay";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 
 export const runtime = "edge";
 
@@ -30,7 +29,6 @@ const InputForm: React.FC<InputFormProps> = (props) => {
     React.useState<string>("");
   const [nextSession, setNextSession] = React.useState<string>();
 
-  const router = useRouter();
 
   useEffect(() => {
     setNextSession(nanoid());
@@ -54,7 +52,6 @@ const InputForm: React.FC<InputFormProps> = (props) => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log("submitting form");
 
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
@@ -64,9 +61,9 @@ const InputForm: React.FC<InputFormProps> = (props) => {
     setIsLoading(true);
     setSubmitted(true);
     setUserDescription(text);
-    console.log("heading out to API");
+
     const score = await getAiSimilarity(sessionId, text);
-    console.log("back from API");
+
     setsimilarityScore(parseFloat((score * 100).toFixed(3)));
     setIsLoading(false);
   };
@@ -74,12 +71,13 @@ const InputForm: React.FC<InputFormProps> = (props) => {
   return (
     <>
       <div className="max-w-md rounded-lg shadow-xl">
-        <img
+        <Image
           src={props.imageUrl}
           alt="AI Generated Image"
           width={336}
           height={187}
           className="rounded-lg shadow-xl"
+          priority
         />
       </div>
 
@@ -106,8 +104,8 @@ const InputForm: React.FC<InputFormProps> = (props) => {
             aiDescription={aiImageDescription}
             similarity={similarityScore}
           />
-      <Link href={`/are-you-ai/${nextSession}`}>
-      <Button className="max-w-md my-4">Go Again</Button>
+          <Link href={`/are-you-ai/${nextSession}`}>
+            <Button className="max-w-md my-4">Go Again</Button>
           </Link>
         </>
       )}

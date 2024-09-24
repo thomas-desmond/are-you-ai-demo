@@ -21,6 +21,11 @@ index_name = "are-you-ai"
 [observability]
 enabled = true
 
+[[d1_databases]]
+binding = "DB" # i.e. available in your Worker on env.DB
+database_name = "prod-are-you-ai"
+database_id = "9f4f64d3-a21e-407c-95f9-5805fdb48c14"
+
 # Automatically place your workloads in an optimal location to minimize latency.
 # If you are running back-end logic in a Worker, running it closer to your back-end infrastructure
 # rather than the end user may result in better performance.

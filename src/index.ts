@@ -59,7 +59,7 @@ app.post('/getSimilarityScore', async (c: any) => {
 });
 
 app.get('/randomImageUrl', async (c: any) => {
-	const data = await getRandomImage(c)
+	const data = await getRandomImage(c);
 
 	if (data.success) {
 		return c.json({
@@ -70,6 +70,30 @@ app.get('/randomImageUrl', async (c: any) => {
 			error: 'Image upload failed',
 		});
 	}
+});
+
+app.post('/databaseInsert', async (c: any) => {
+	const body = await c.req.json();
+	const sessionId = body.sessionId;
+	const userDescription = body.userDescription;
+	const aiImageDescription = body.aiImageDescription;
+	const score = body.score;
+	const imageUrl = body.imageUrl;
+
+	const username = null;
+	const email = null;
+
+	const response = await c.env.DB.prepare(
+		'INSERT INTO Sessions (sessionID, username, email, date, score, aiImageDescription, userDescription, imageUrl) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8);'
+	)
+		.bind(sessionId, username, email, new Date().toISOString(), score, aiImageDescription, userDescription, imageUrl)
+		.run();
+
+	console.log(response);
+
+	return c.json({
+		success: true,
+	});
 });
 
 export default app;

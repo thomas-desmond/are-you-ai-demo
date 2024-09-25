@@ -11,6 +11,7 @@ import { LoadingSpinner } from "./ui/loadingSpinner";
 import { ResultsDisplay } from "./ui/resultsDisplay";
 import Link from "next/link";
 import Image from "next/image";
+import { insertIntoDatabase } from "@/lib/db";
 
 export const runtime = "edge";
 
@@ -66,6 +67,8 @@ const InputForm: React.FC<InputFormProps> = (props) => {
 
     setsimilarityScore(parseFloat((score * 100).toFixed(3)));
     setIsLoading(false);
+
+    await insertIntoDatabase(sessionId, text, aiImageDescription, parseFloat((score * 100).toFixed(3)), props.imageUrl);
   };
 
   return (

@@ -48,15 +48,15 @@ export default async function BehindTheScenes() {
                     key={submission.ID}
                     className="hover:bg-gray-50 transition-colors"
                   >
-                    <td className="px-4 py-4 whitespace-nowrap text-xl text-gray-900">
+                    <td className="px-4 py-4 whitespace-nowrap text-sm md:text-xl text-gray-900">
                       {index + 1}
                     </td>
-                    <td className="px-4 py-4 whitespace-nowrap">
-                      <Badge className="text-xl" variant="outline">
+                    <td className="px-1 md:px-4 py-4 whitespace-nowrap">
+                      <Badge className=" text-sm md:text-xl" variant="outline">
                         {submission.score}
                       </Badge>
                     </td>
-                    <td className="px-4 py-4 text-lg text-gray-500 break-normal">
+                    <td className="px-4 py-4 text-sm md:text-lg text-gray-500 break-normal">
                       <div className="flex flex-col break-normal">
                         <div className="w-full">
                           <span className="font-bold">User:</span> {submission.userDescription}

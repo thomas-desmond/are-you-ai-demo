@@ -46,13 +46,7 @@ export default async function BehindTheScenes() {
                     <td className="px-4 py-4 whitespace-nowrap">
                       <Badge
                         className="text-xl"
-                        variant={
-                          submission.score >= 90
-                            ? "success"
-                            : submission.score >= 80
-                            ? "warning"
-                            : "destructive"
-                        }
+                        variant="outline"
                       >
                         {submission.score}
                       </Badge>

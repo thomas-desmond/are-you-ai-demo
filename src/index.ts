@@ -96,4 +96,13 @@ app.post('/databaseInsert', async (c: any) => {
 	});
 });
 
+app.get('/recentSessions', async (c: any) => {
+	const response = await c.env.DB.prepare('SELECT * FROM Sessions ORDER BY date DESC LIMIT 10;').all();
+
+	return c.json({
+		sessions: response,
+	});
+});
+
+
 export default app;

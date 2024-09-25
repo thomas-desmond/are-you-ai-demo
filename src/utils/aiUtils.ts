@@ -7,7 +7,7 @@ async function getAiImageDescription(c: Context, encodedImage: any): Promise<str
 	try {
 		const input = {
 			image: encodedImage,
-			prompt: 'Describe the image in a detailed sentence',
+			prompt: 'Describe the image in a single detailed sentence',
 			max_tokens: 512,
 		};
 		const response = await c.env.AI.run('@cf/llava-hf/llava-1.5-7b-hf', input, {

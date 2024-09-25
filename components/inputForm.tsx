@@ -24,19 +24,16 @@ interface InputFormProps {
 const InputForm: React.FC<InputFormProps> = (props) => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [submitted, setSubmitted] = React.useState<boolean>(false);
-  const [similarityScore, setsimilarityScore] = React.useState<number>();
+  const [similarityScore, setSimilarityScore] = React.useState<number>();
   const [userDescription, setUserDescription] = React.useState<string>();
   const [aiImageDescription, setAiImageDescription] =
     React.useState<string>("");
   const [nextSession, setNextSession] = React.useState<string>();
 
-
   useEffect(() => {
     setNextSession(nanoid());
     const fetchData = async () => {
-      console.log("fetching data", props.imageUrl);
       if (!props.imageUrl) return;
-      console.log("Fetching image description for AI");
       try {
         const aiImageDescription = await getAiDescriptionAndInsertToVectorize(
           sessionId,
@@ -44,7 +41,7 @@ const InputForm: React.FC<InputFormProps> = (props) => {
         );
         setAiImageDescription(aiImageDescription);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error Retrieving AI Image Description", error);
       }
     };
 
@@ -65,22 +62,28 @@ const InputForm: React.FC<InputFormProps> = (props) => {
 
     const score = await getAiSimilarity(sessionId, text);
 
-    setsimilarityScore(parseFloat((score * 100).toFixed(3)));
+    setSimilarityScore(parseFloat((score * 100).toFixed(3)));
     setIsLoading(false);
 
-    await insertIntoDatabase(sessionId, text, aiImageDescription, parseFloat((score * 100).toFixed(3)), props.imageUrl);
+    await insertIntoDatabase(
+      sessionId,
+      text,
+      aiImageDescription,
+      parseFloat((score * 100).toFixed(3)),
+      props.imageUrl
+    );
   };
 
   return (
     <>
-        <Image
-          src={props.imageUrl}
-          alt="AI Generated Image"
-          width={336}
-          height={187}
-          className="rounded-lg shadow-xl"
-          priority
-        />
+      <Image
+        src={props.imageUrl}
+        alt="AI Generated Image"
+        width={336}
+        height={187}
+        className="rounded-lg shadow-xl"
+        priority
+      />
 
       {!submitted && (
         <div className="w-full max-w-md mt-2 bg-white p-6 rounded-lg shadow-xl flex justify-center">
@@ -106,7 +109,14 @@ const InputForm: React.FC<InputFormProps> = (props) => {
             similarity={similarityScore}
           />
           <Link href={`/are-you-ai/${nextSession}`}>
-            <Button className="max-w-md my-4">Go Again</Button>
+            <Button className="max-w-md text-xl px-8 py-4 my-4">
+              Generate New Image
+            </Button>
+          </Link>
+          <Link className="mt-1" href={`/recent`}>
+            <Button variant="outline" className="py-2 px-8 text-lg">
+              Recent Sessions
+            </Button>
           </Link>
         </>
       )}

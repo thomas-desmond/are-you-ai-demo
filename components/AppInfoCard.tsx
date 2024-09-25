@@ -9,9 +9,9 @@ import {
 import { Earth, Database, Brain, Server } from "lucide-react";
 import { nanoid } from "nanoid";
 import Link from "next/link";
+import { Button } from "./ui/button";
 
 export default function AppInfoCard() {
-
   const session = nanoid();
   const features = [
     {
@@ -53,9 +53,7 @@ export default function AppInfoCard() {
           {features.map((feature, index) => (
             <div key={index} className="flex items-start space-x-3">
               <div className="h-6 w-6">
-                <feature.icon
-                  className="text-primary"
-                />{" "}
+                <feature.icon className="text-primary" />{" "}
               </div>
               <div>
                 <h3 className="font-semibold">{feature.title}</h3>
@@ -68,11 +66,18 @@ export default function AppInfoCard() {
         </div>
       </CardContent>
       <CardFooter className="flex flex-col justify-center">
-        <Link
-          className="bg-[#F6821F] text-black py-4 px-8 text-2xl rounded animate-pulse"
-          href={`/are-you-ai/${session}`}
-        >
-          Are You AI?
+        <Link className="" href={`/are-you-ai/${session}`}>
+          <Button
+            
+            className=" py-8 px-8 text-2xl rounded animate-pulse"
+          >
+            Are You AI?
+          </Button>
+        </Link>
+        <Link className="mt-4" href={`/recent`}>
+          <Button variant="outline" className="py-2 px-8 text-lg">
+            Recent Sessions
+          </Button>
         </Link>
         <p className="mt-2 text-sm text-muted-foreground">
           Powered by Cloudflare

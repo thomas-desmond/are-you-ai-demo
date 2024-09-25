@@ -12,7 +12,7 @@ export default function ViewSourceCode({}) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Button variant="outline" className="bg-[#F6821F] text-black w-full mb-2">
+          <Button className="w-full mb-2">
             <Github className="mr-2 h-4 w-4" />
             Frontend Repository
           </Button>
@@ -22,7 +22,7 @@ export default function ViewSourceCode({}) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Button variant="outline" className="bg-[#F6821F] text-black w-full mb-2">
+          <Button className="w-full mb-2">
             <Github className="mr-2 h-4 w-4" />
             API Repository
           </Button>

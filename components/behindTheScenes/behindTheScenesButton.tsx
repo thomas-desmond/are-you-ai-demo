@@ -6,7 +6,7 @@ export default function BehindTheScenesButton() {
   return (
       <Link href="/behind-the-scenes" passHref>
         <Button
-          variant="secondary"
+          variant="outline"
           className="rounded-full shadow-lg hover:shadow-xl transition-shadow duration-300"
         >
           <InfoIcon className="w-5 h-5 mr-2" />

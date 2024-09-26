@@ -12,7 +12,7 @@ async function getAiImageDescription(c: Context, encodedImage: any): Promise<str
 		};
 		const response = await c.env.AI.run('@cf/llava-hf/llava-1.5-7b-hf', input, {
 			gateway: {
-				id: 'are-you-ai-gateway',
+				id: 'are-you-ai-demo',
 				skipCache: false,
 				cacheTtl: 3360,
 			},
@@ -32,7 +32,7 @@ const generateVectorEmbedding = async (c: Context, text: string) => {
 		},
 		{
 			gateway: {
-				id: 'are-you-ai-gateway',
+				id: 'are-you-ai-demo',
 				skipCache: false,
 				cacheTtl: 3360,
 			},
@@ -54,7 +54,7 @@ async function getRandomImage(c: any): Promise<ImageUploadResponse> {
 
 	const response = await c.env.AI.run('@cf/bytedance/stable-diffusion-xl-lightning', inputs, {
 		gateway: {
-			id: 'are-you-ai-gateway',
+			id: 'are-you-ai-demo',
 			skipCache: false,
 			cacheTtl: 3360,
 		},

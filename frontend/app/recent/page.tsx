@@ -69,7 +69,7 @@ export default async function BehindTheScenes() {
                     <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
                       <div className="flex items-center">
                         <Image
-                          src={submission.imageURL}
+                          src={submission.imageUrl}
                           alt={submission.userDescription}
                           width={150}
                           height={150}

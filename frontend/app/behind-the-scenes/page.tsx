@@ -23,7 +23,7 @@ export default function BehindTheScenes() {
           <Button>&#x2190; Back Home</Button>
         </Link>
       </div>
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center mt-8">
         <div className="container mx-auto px-4 py-8 flex flex-col items-center w-full md:w-4/5">
           <h1 className="text-3xl font-bold mb-6">
             Behind the Scenes: How &quot;Are you AI?&quot; Works

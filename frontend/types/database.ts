@@ -28,6 +28,6 @@ export interface Root {
     score: number
     aiImageDescription: string
     userDescription: string
-    imageURL: string
+    imageUrl: string
   }
   

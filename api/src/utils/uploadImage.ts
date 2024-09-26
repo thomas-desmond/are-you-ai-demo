@@ -4,7 +4,7 @@ import { nanoid } from "nanoid";
 export async function uploadToCloudflareImages(c: Context, encodedImage: Uint8Array) {
 	const imageName = nanoid();
 
-	const apiUrl = c.env.API_URL;
+	const apiUrl = c.env.IMAGE_API_URL;
 	const token = c.env.IMAGE_UPLOAD_TOKEN;
 
 

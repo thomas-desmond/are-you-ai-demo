@@ -2,7 +2,7 @@ import { Root } from "@/types/database";
 
 async function insertIntoDatabase(sessionId: string, userDescription: string, aiImageDescription: string, score: number, imageUrl: string) {
     try {
-      const response = await fetch('https://api.areyouai.org/databaseInsert', {
+      const response = await fetch('https://are-you-ai-api.cf-tme.workers.dev/databaseInsert', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -28,7 +28,7 @@ async function insertIntoDatabase(sessionId: string, userDescription: string, ai
 
 async function fetchRecentSessions() {
     try {
-        const response = await fetch('https://api.areyouai.org/recentSessions', {
+        const response = await fetch('https://are-you-ai-api.cf-tme.workers.dev/recentSessions', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

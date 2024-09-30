@@ -5,7 +5,7 @@ async function getAiSimilarity(
   sessionId: string,
   text: string
 ): Promise<number> {
-  const response = await fetch("https://are-you-ai-api.cf-tme.workers.dev/getSimilarityScore", {
+  const response = await fetch("https://api.areyouaidemo.com/getSimilarityScore", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -22,7 +22,7 @@ async function getAiDescriptionAndInsertToVectorize(
   sessionId: string,
   imageUrl: string
 ): Promise<any> {
-  const response = await fetch("https://are-you-ai-api.cf-tme.workers.dev/aiImageDescription",  {
+  const response = await fetch("https://api.areyouaidemo.com/aiImageDescription",  {
     cache: "no-cache",
     method: "POST",
     headers: {
@@ -38,7 +38,7 @@ async function getAiDescriptionAndInsertToVectorize(
 }
 
 async function getRandomAIGeneratedImage(): Promise<string> {
-  const response = await fetch("https://are-you-ai-api.cf-tme.workers.dev/randomImageUrl", {
+  const response = await fetch("https://api.areyouaidemo.com/randomImageUrl", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

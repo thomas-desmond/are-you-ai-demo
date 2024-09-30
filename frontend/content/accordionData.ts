@@ -1,4 +1,6 @@
 import { fullstackAppMarkdown } from './fullstackAppMarkdown';
+import { onPageLoadMarkdown } from './onPageLoadMarkdown';
+import { onUserSubmissionMarkdown } from './onUserSubmissionMarkdown';
 
 
 
@@ -8,6 +10,16 @@ export const accordionData = [
       description: fullstackAppMarkdown,
       imageSrc: "/are-you-ai-services.png",
       learnMoreUrl: "https://developers.cloudflare.com/reference-architecture/diagrams/serverless/fullstack-application/",
+    },
+    {
+      title: "On Page Load Data Flow",
+      description: onPageLoadMarkdown,
+      imageSrc: "/on-page-load-diagram.png",
+    },
+    {
+      title: "On User Image Description Submission",
+      description: onUserSubmissionMarkdown,
+      imageSrc: "/on-user-submission-diagram.png",
     },
     {
       title: "Global Serverless API",

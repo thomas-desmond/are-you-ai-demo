@@ -57,21 +57,25 @@ export default function BehindTheScenes() {
                     </AccordionTrigger>
                     <AccordionContent>
                       <div className="space-y-4 pt-4">
-                        <Markdown>{item.description}</Markdown>
+                        <div className="prose lg:prose-xl max-w-none">
+                          <Markdown>{item.description}</Markdown>
+                        </div>
                         <img
                           src={item.imageSrc}
                           alt={item.title}
                           className="rounded-lg"
                         />
-                        <Button className="w-full mb-4 sm:w-auto bg-[#F6821F] text-black ">
-                          <a
-                            href={item.learnMoreUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            Learn More
-                          </a>
-                        </Button>
+                        {item.learnMoreUrl && (
+                          <Button className="w-full mb-4 sm:w-auto bg-[#F6821F] text-black">
+                            <a
+                              href={item.learnMoreUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              Learn More
+                            </a>
+                          </Button>
+                        )}
                       </div>
                     </AccordionContent>
                   </AccordionItem>

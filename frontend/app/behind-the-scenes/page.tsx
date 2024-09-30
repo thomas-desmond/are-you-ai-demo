@@ -12,6 +12,7 @@ import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import { accordionData } from "@/content/accordionData";
 import Markdown from "react-markdown";
+import Image from "next/image";
 
 export const runtime = "edge";
 
@@ -60,10 +61,12 @@ export default function BehindTheScenes() {
                         <div className="prose lg:prose-xl max-w-none">
                           <Markdown>{item.description}</Markdown>
                         </div>
-                        <img
+                        <Image
                           src={item.imageSrc}
                           alt={item.title}
-                          className="rounded-lg"
+                          width={item.width}
+                          height={item.height}
+                          className="rounded-lg w-full"
                         />
                         {item.learnMoreUrl && (
                           <Button className="w-full mb-4 sm:w-auto bg-[#F6821F] text-black">

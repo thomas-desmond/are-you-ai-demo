@@ -89,7 +89,7 @@ const InputForm: React.FC<InputFormProps> = (props) => {
         <div className="w-full max-w-md mt-2 bg-white p-6 rounded-lg shadow-xl flex justify-center">
           <form className="w-full" onSubmit={handleSubmit}>
             <Input
-              placeholder="Give a consise description of the image..."
+              placeholder="Give a detailed single sentence description"
               className="mb-4"
               id="message"
               name="message"

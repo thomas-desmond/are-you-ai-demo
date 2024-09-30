@@ -36,8 +36,8 @@ export default function BehindTheScenes() {
           <ViewSourceCode />
           <Card className="w-full">
             <CardHeader>
-              <CardTitle className="text-xl md:text-5xl underline">
-                How It Works
+              <CardTitle className="text-xl md:text-4xl underline">
+                How Are You AI? Works
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -50,8 +50,8 @@ export default function BehindTheScenes() {
                   >
                     <AccordionTrigger className="hover:no-underline my-4 w-full">
                       <div className="flex flex-row justify-between items-center">
-                        <h3 className="text-left text-lg md:text-3xl font-semibold">
-                          {item.title}
+                        <h3 className="text-left text-lg md:text-2xl font-semibold">
+                         {index + 1}{". "} {item.title}
                         </h3>
                         <ChevronDown />
                       </div>

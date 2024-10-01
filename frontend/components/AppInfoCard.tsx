@@ -10,6 +10,7 @@ import { Earth, Database, Brain, Server } from "lucide-react";
 import { nanoid } from "nanoid";
 import Link from "next/link";
 import { Button } from "./ui/button";
+import Image from "next/image";
 
 export default function AppInfoCard() {
   const session = nanoid();
@@ -67,10 +68,7 @@ export default function AppInfoCard() {
       </CardContent>
       <CardFooter className="flex flex-col justify-center">
         <Link className="" href={`/are-you-ai/${session}`}>
-          <Button
-            
-            className=" py-8 px-8 text-2xl rounded animate-pulse"
-          >
+          <Button className=" py-8 px-8 text-2xl rounded animate-pulse">
             Are You AI?
           </Button>
         </Link>
@@ -79,9 +77,13 @@ export default function AppInfoCard() {
             Recent Sessions
           </Button>
         </Link>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Powered by Cloudflare
-        </p>
+        <p className="mt-2 text-lg text-muted-foreground">Powered by</p>
+        <Image
+          src="/cloudflare-logo.png"
+          alt="Cloudflare Logo"
+          width={277}
+          height={115}
+        />{" "}
       </CardFooter>
     </Card>
   );

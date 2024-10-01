@@ -6,6 +6,7 @@ async function insertIntoDatabase(sessionId: string, userDescription: string, ai
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          "Session-Identifier": sessionId
         },
         body: JSON.stringify({
           sessionId,

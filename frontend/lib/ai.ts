@@ -9,6 +9,7 @@ async function getAiSimilarity(
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "Session-Identifier": sessionId,
     },
     body: JSON.stringify({ sessionId, text }),
   });
@@ -27,6 +28,7 @@ async function getAiDescriptionAndInsertToVectorize(
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "Session-Identifier": sessionId
     },
     body: JSON.stringify({ sessionId, imageUrl }),
    
@@ -37,11 +39,12 @@ async function getAiDescriptionAndInsertToVectorize(
   return data?.aiImageDescription;
 }
 
-async function getRandomAIGeneratedImage(): Promise<string> {
+async function getRandomAIGeneratedImage(sessionId: string): Promise<string> {
   const response = await fetch("https://api.areyouaidemo.com/randomImageUrl", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
+      "Session-Identifier": sessionId
     },
   });
   

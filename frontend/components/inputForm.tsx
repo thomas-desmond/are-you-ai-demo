@@ -15,10 +15,10 @@ import { insertIntoDatabase } from "@/lib/db";
 
 export const runtime = "edge";
 
-const sessionId = nanoid();
 
 interface InputFormProps {
   imageUrl: string;
+  sessionId: string;
 }
 
 const InputForm: React.FC<InputFormProps> = (props) => {
@@ -36,7 +36,7 @@ const InputForm: React.FC<InputFormProps> = (props) => {
       if (!props.imageUrl) return;
       try {
         const aiImageDescription = await getAiDescriptionAndInsertToVectorize(
-          sessionId,
+          props.sessionId,
           props.imageUrl
         );
         setAiImageDescription(aiImageDescription);
@@ -60,13 +60,13 @@ const InputForm: React.FC<InputFormProps> = (props) => {
     setSubmitted(true);
     setUserDescription(text);
 
-    const score = await getAiSimilarity(sessionId, text);
+    const score = await getAiSimilarity(props.sessionId, text);
 
     setSimilarityScore(parseFloat((score * 100).toFixed(3)));
     setIsLoading(false);
 
     await insertIntoDatabase(
-      sessionId,
+      props.sessionId,
       text,
       aiImageDescription,
       parseFloat((score * 100).toFixed(3)),

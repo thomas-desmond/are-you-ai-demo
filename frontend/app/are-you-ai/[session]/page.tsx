@@ -3,11 +3,13 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import InputForm from "@/components/inputForm";
 import { getRandomAIGeneratedImage } from "@/lib/ai";
+import { nanoid } from "nanoid";
 
 export const runtime = "edge";
 
 export default async function Home() {  
-  const imageUrl = await getRandomAIGeneratedImage();
+  const sessionId = nanoid();
+  const imageUrl = await getRandomAIGeneratedImage(sessionId);
 
   return (
     <>
@@ -23,7 +25,7 @@ export default async function Home() {
             Describe the image you see below
           </p>
         </div>
-        <InputForm imageUrl={imageUrl} />
+        <InputForm imageUrl={imageUrl} sessionId={sessionId} />
       </div>
     </>
   );

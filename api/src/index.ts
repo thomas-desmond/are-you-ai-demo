@@ -8,7 +8,7 @@ app.use(
 	'*',
 	cors({
 		origin: '*',
-		allowHeaders: ['X-Custom-Header', 'Upgrade-Insecure-Requests', 'Content-Type'],
+		allowHeaders: ['X-Custom-Header', 'Upgrade-Insecure-Requests', 'Content-Type', `Session-Identifier` ],
 		allowMethods: ['POST', 'GET'],
 		exposeHeaders: ['Content-Length', 'X-Kuma-Revision'],
 		maxAge: 600,

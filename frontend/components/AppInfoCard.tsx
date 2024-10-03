@@ -19,7 +19,7 @@ export default function AppInfoCard() {
       icon: Earth,
       title: "Global Network",
       description:
-        "Deployed to every one of Cloudflares 330+ locations in a single click",
+        "Deployed to every one of Cloudflare's 330+ locations in a single click",
     },
     {
       icon: Database,
@@ -46,7 +46,7 @@ export default function AppInfoCard() {
       <CardHeader>
         <CardTitle className="text-2xl font-bold">Are You AI?</CardTitle>
         <CardDescription>
-          This tool is a demo of Cloudflares Developer Platform
+          This tool is a demo of Cloudflare&apos;s Developer Platform
         </CardDescription>
       </CardHeader>
       <CardContent>

@@ -12,9 +12,10 @@ import { ResultsDisplay } from "./ui/resultsDisplay";
 import Link from "next/link";
 import Image from "next/image";
 import { insertIntoDatabase } from "@/lib/db";
+import ComponentWrapper from "./ComponentWrapper/ComponentWrapper";
+import { toolTipData } from "@/content/toolTipData";
 
 export const runtime = "edge";
-
 
 interface InputFormProps {
   imageUrl: string;
@@ -76,15 +77,20 @@ const InputForm: React.FC<InputFormProps> = (props) => {
 
   return (
     <>
-      <Image
-        src={props.imageUrl}
-        alt="AI Generated Image"
-        width={336}
-        height={187}
-        className="rounded-lg shadow-xl"
-        priority
-      />
-
+      <ComponentWrapper
+        imageUrls={["/services/workersai.svg", "/services/aigateway.svg", "/services/images.svg"]}
+        imageToolTips={[toolTipData.randomImage, toolTipData.aiGateway, toolTipData.images]}
+        imagePosition="top-right"
+      >
+        <Image
+          src={props.imageUrl}
+          alt="AI Generated Image"
+          width={336}
+          height={187}
+          className="rounded-lg shadow-xl"
+          priority
+        />
+      </ComponentWrapper>
       {!submitted && (
         <div className="w-full max-w-md mt-2 bg-white p-6 rounded-lg shadow-xl flex justify-center">
           <form className="w-full" onSubmit={handleSubmit}>

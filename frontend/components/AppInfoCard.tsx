@@ -25,7 +25,7 @@ export default function AppInfoCard() {
       icon: Database,
       title: "Vectorize",
       description:
-        "Vectorize is a globally distributed vector database that enables you to build full-stack, AI-powered applications with Cloudflare Workers.",
+        "Globally distributed vector database that enables you to build full-stack, AI-powered applications with Cloudflare Workers.",
     },
     {
       icon: Brain,
@@ -81,8 +81,8 @@ export default function AppInfoCard() {
         <Image
           src="/cloudflare-logo.png"
           alt="Cloudflare Logo"
-          width={277}
-          height={115}
+          width={277/2}
+          height={115/2}
         />{" "}
       </CardFooter>
     </Card>

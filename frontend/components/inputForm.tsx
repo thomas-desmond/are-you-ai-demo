@@ -18,6 +18,7 @@ export const runtime = "edge";
 
 interface InputFormProps {
   imageUrl: string;
+  aiImageDescription: string;
   sessionId: string;
 }
 
@@ -26,27 +27,7 @@ const InputForm: React.FC<InputFormProps> = (props) => {
   const [submitted, setSubmitted] = React.useState<boolean>(false);
   const [similarityScore, setSimilarityScore] = React.useState<number>();
   const [userDescription, setUserDescription] = React.useState<string>();
-  const [aiImageDescription, setAiImageDescription] =
-    React.useState<string>("");
-  const [nextSession, setNextSession] = React.useState<string>();
-
-  useEffect(() => {
-    setNextSession(nanoid());
-    const fetchData = async () => {
-      if (!props.imageUrl) return;
-      try {
-        const aiImageDescription = await getAiDescriptionAndInsertToVectorize(
-          props.sessionId,
-          props.imageUrl
-        );
-        setAiImageDescription(aiImageDescription);
-      } catch (error) {
-        console.error("Error Retrieving AI Image Description", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const [nextSession, setNextSession] = React.useState<string>(nanoid());
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -68,7 +49,7 @@ const InputForm: React.FC<InputFormProps> = (props) => {
     await insertIntoDatabase(
       props.sessionId,
       text,
-      aiImageDescription,
+      props.aiImageDescription,
       parseFloat((score * 100).toFixed(3)),
       props.imageUrl
     );
@@ -101,11 +82,11 @@ const InputForm: React.FC<InputFormProps> = (props) => {
         </div>
       )}
       {isLoading && <LoadingSpinner className="mt-4" size={48} />}
-      {similarityScore && aiImageDescription && (
+      {similarityScore && (
         <>
           <ResultsDisplay
             userDescription={userDescription as string}
-            aiDescription={aiImageDescription}
+            aiDescription={props.aiImageDescription}
             similarity={similarityScore}
           />
           <Link href={`/are-you-ai/${nextSession}`}>

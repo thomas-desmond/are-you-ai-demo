@@ -10,7 +10,7 @@ export default function Loading() {
           <Skeleton className="h-48 w-full rounded-lg" />
           <div className="flex flex-col items-center justify-center mt-4 space-x-2">
             <Loader2 className="h-4 w-4 animate-spin" />
-            <p className="text-sm font-medium">Using Cloudflare Workers AI to generate a random image</p>
+            <p className="text-sm font-medium">Using Cloudflare Workers AI to generate a random image (Text to Image) then using a separate AI Worker to generate the description (Image to Text)</p>
           </div>
         </CardContent>
         <CardFooter className="flex flex-col items-center px-4 pt-0 pb-4">

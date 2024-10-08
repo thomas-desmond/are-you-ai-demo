@@ -2,14 +2,15 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import InputForm from "@/components/inputForm";
-import { getRandomAIGeneratedImage } from "@/lib/ai";
+import { getAiDescriptionAndInsertToVectorize, getRandomAIGeneratedImage } from "@/lib/ai";
 import { nanoid } from "nanoid";
 
 export const runtime = "edge";
 
-export default async function Home() {  
-  const sessionId = nanoid();
-  const imageUrl = await getRandomAIGeneratedImage(sessionId);
+export default async function Home({ params }: { params: { session: string } }) {  
+  const imageUrl = await getRandomAIGeneratedImage(params.session);
+  const aiImageDescription = await getAiDescriptionAndInsertToVectorize(params.session, imageUrl)
+
 
   return (
     <>
@@ -25,7 +26,7 @@ export default async function Home() {
             Describe the image you see below
           </p>
         </div>
-        <InputForm imageUrl={imageUrl} sessionId={sessionId} />
+        <InputForm imageUrl={imageUrl} aiImageDescription={aiImageDescription} sessionId={params.session} />
       </div>
     </>
   );

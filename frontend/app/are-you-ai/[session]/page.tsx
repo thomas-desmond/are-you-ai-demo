@@ -1,9 +1,7 @@
-/* eslint-disable @next/next/no-img-element */
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import InputForm from "@/components/inputForm";
 import { getAiDescriptionAndInsertToVectorize, getRandomAIGeneratedImage } from "@/lib/ai";
-import { nanoid } from "nanoid";
 
 export const runtime = "edge";
 

@@ -24,7 +24,6 @@ async function getAiDescriptionAndInsertToVectorize(
   imageUrl: string
 ): Promise<any> {
   const response = await fetch("https://api.areyouaidemo.com/aiImageDescription",  {
-    cache: "no-cache",
     method: "POST",
     headers: {
       "Content-Type": "application/json",

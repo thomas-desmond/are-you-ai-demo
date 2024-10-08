@@ -29,7 +29,7 @@ export default function BehindTheScenes() {
           <Card className="w-full">
             <CardHeader>
               <CardTitle className="text-2xl underline text-center text-gray-800">
-                Behind the Scenes: How "Are you AI?" Works
+                Behind the Scenes: How &quot;Are you AI?&quot; Works
               </CardTitle>
             </CardHeader>
             <CardContent>

@@ -7,10 +7,11 @@ import { nanoid } from "nanoid";
 
 export const runtime = "edge";
 
-export default async function Home() {  
-  const sessionId = nanoid();
+export default async function Home({ params }: { params: { session: string } }) {  
+  const sessionId = params.session || nanoid();
   const imageUrl = await getRandomAIGeneratedImage(sessionId);
 
+  console.log("sessionId", sessionId);
   return (
     <>
       <div className="absolute top-4 left-4">

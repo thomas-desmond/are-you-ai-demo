@@ -1,20 +1,15 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import { nanoid } from "nanoid";
-import {
-  getAiDescriptionAndInsertToVectorize,
-  getAiSimilarity,
-} from "@/lib/ai";
-import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { LoadingSpinner } from "./ui/loadingSpinner";
 import { ResultsDisplay } from "./ui/resultsDisplay";
 import Link from "next/link";
 import Image from "next/image";
-import { insertIntoDatabase } from "@/lib/db";
+import { useFormState } from "react-dom";
+import { handleSubmitServerAction } from "@/app/actions/UserDescriptionSubmitAction";
+import { InputFormAndSubmitButton } from "./submitButton";
 
 export const runtime = "edge";
-
 
 interface InputFormProps {
   imageUrl: string;
@@ -22,38 +17,19 @@ interface InputFormProps {
   sessionId: string;
 }
 
+const initialState = {
+  similarityScore: -1,
+  userDescription: "",
+};
+
 const InputForm: React.FC<InputFormProps> = (props) => {
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [submitted, setSubmitted] = React.useState<boolean>(false);
-  const [similarityScore, setSimilarityScore] = React.useState<number>();
   const [userDescription, setUserDescription] = React.useState<string>();
   const [nextSession, setNextSession] = React.useState<string>(nanoid());
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-
-    const form = e.target as HTMLFormElement;
-    const formData = new FormData(form);
-    const text = formData.get("message") as string;
-    if (!text) return;
-
-    setIsLoading(true);
-    setSubmitted(true);
-    setUserDescription(text);
-
-    const score = await getAiSimilarity(props.sessionId, text);
-
-    setSimilarityScore(parseFloat((score * 100).toFixed(3)));
-    setIsLoading(false);
-
-    await insertIntoDatabase(
-      props.sessionId,
-      text,
-      props.aiImageDescription,
-      parseFloat((score * 100).toFixed(3)),
-      props.imageUrl
-    );
-  };
+  const [state, formAction] = useFormState(
+    handleSubmitServerAction,
+    initialState
+  );
 
   return (
     <>
@@ -66,28 +42,22 @@ const InputForm: React.FC<InputFormProps> = (props) => {
         priority
       />
 
-      {!submitted && (
-        <div className="w-full max-w-md mt-2 bg-white p-6 rounded-lg shadow-xl flex justify-center">
-          <form className="w-full" onSubmit={handleSubmit}>
-            <Input
-              placeholder="Give a detailed single sentence description"
-              className="mb-4"
-              id="message"
-              name="message"
-            />
-            <Button type="submit" className="w-full" disabled={isLoading}>
-              Submit Description
-            </Button>
-          </form>
-        </div>
-      )}
-      {isLoading && <LoadingSpinner className="mt-4" size={48} />}
-      {similarityScore && (
+      <form
+        className="w-full flex justify-center items-center"
+        action={formAction}
+      >
+        <InputFormAndSubmitButton
+          similarityScore={state?.similarityScore}
+          onValueChange={(value: string) => setUserDescription(value)}
+        />
+        <input type="hidden" name="sessionId" value={props.sessionId} />
+      </form>
+      {state && state.similarityScore != -1 && (
         <>
           <ResultsDisplay
             userDescription={userDescription as string}
             aiDescription={props.aiImageDescription}
-            similarity={similarityScore}
+            similarity={state.similarityScore}
           />
           <Link href={`/are-you-ai/${nextSession}`}>
             <Button className="max-w-md text-xl px-8 py-4 my-4">

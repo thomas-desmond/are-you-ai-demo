@@ -1,7 +1,7 @@
 import { useFormStatus } from "react-dom";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-import { LoadingSpinner } from "./ui/loadingSpinner";
+import { Input } from "../../../components/ui/input";
+import { Button } from "../../../components/ui/button";
+import { LoadingSpinner } from "../../../components/ui/loadingSpinner";
 
 interface InputFormAndSubmitButtonProps {
     similarityScore: number | undefined;

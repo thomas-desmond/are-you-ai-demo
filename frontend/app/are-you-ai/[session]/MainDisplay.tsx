@@ -1,13 +1,13 @@
 "use client";
 import React from "react";
 import { nanoid } from "nanoid";
-import { Button } from "./ui/button";
-import { ResultsDisplay } from "./ui/resultsDisplay";
+import { Button } from "../../../components/ui/button";
+import { ResultsDisplay } from "../../../components/ui/resultsDisplay";
 import Link from "next/link";
 import Image from "next/image";
 import { useFormState } from "react-dom";
 import { handleSubmitServerAction } from "@/app/actions/UserDescriptionSubmitAction";
-import { InputFormAndSubmitButton } from "./submitButton";
+import { InputFormAndSubmitButton } from "./UserInputAndSubmit";
 
 export const runtime = "edge";
 
@@ -22,7 +22,7 @@ const initialState = {
   userDescription: "",
 };
 
-const InputForm: React.FC<InputFormProps> = (props) => {
+const MainDisplay: React.FC<InputFormProps> = (props) => {
   const [userDescription, setUserDescription] = React.useState<string>();
   const [nextSession, setNextSession] = React.useState<string>(nanoid());
 
@@ -41,7 +41,6 @@ const InputForm: React.FC<InputFormProps> = (props) => {
         className="rounded-lg shadow-xl"
         priority
       />
-
       <form
         className="w-full flex justify-center items-center"
         action={formAction}
@@ -51,6 +50,8 @@ const InputForm: React.FC<InputFormProps> = (props) => {
           onValueChange={(value: string) => setUserDescription(value)}
         />
         <input type="hidden" name="sessionId" value={props.sessionId} />
+        <input type="hidden" name="aiImageDescription" value={props.aiImageDescription} />
+        <input type="hidden" name="imageUrl" value={props.imageUrl} />
       </form>
       {state && state.similarityScore != -1 && (
         <>
@@ -75,4 +76,4 @@ const InputForm: React.FC<InputFormProps> = (props) => {
   );
 };
 
-export default InputForm;
+export default MainDisplay;

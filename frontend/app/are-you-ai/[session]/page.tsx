@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import InputForm from "@/components/inputForm";
 import { getAiDescriptionAndInsertToVectorize, getRandomAIGeneratedImage } from "@/lib/ai";
+import MainDisplay from "./MainDisplay";
 
 export const runtime = "edge";
 
@@ -24,7 +24,7 @@ export default async function Home({ params }: { params: { session: string } }) 
             Describe the image you see below
           </p>
         </div>
-        <InputForm imageUrl={imageUrl} aiImageDescription={aiImageDescription} sessionId={params.session} />
+        <MainDisplay imageUrl={imageUrl} aiImageDescription={aiImageDescription} sessionId={params.session} />
       </div>
     </>
   );

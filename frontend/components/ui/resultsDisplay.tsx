@@ -7,6 +7,21 @@ interface ResultsDisplayProps {
 }
 
 export function ResultsDisplay({ userDescription, aiDescription, similarity }: ResultsDisplayProps) {
+  if (similarity === 0) {
+    return (
+      <Card className="w-full max-w-2xl mt-8">
+        <CardHeader>
+          <CardTitle className="font-semibold text-xl underline">Error</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div>
+            <p>An error occurred while calculating the similarity score. Please try again.</p>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <Card className="w-full max-w-2xl mt-8">
       <CardHeader>

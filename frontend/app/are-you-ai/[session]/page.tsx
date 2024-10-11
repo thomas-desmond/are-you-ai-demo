@@ -1,14 +1,27 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { getAiDescriptionAndInsertToVectorize, getRandomAIGeneratedImage } from "@/lib/ai";
+import {
+  getAiDescriptionAndInsertToVectorize,
+  getRandomAIGeneratedImage,
+} from "@/lib/ai";
 import MainDisplay from "./MainDisplay";
 
 export const runtime = "edge";
 
-export default async function Home({ params }: { params: { session: string } }) {  
+export default async function Home({
+  params,
+}: {
+  params: { session: string };
+}) {
   const imageUrl = await getRandomAIGeneratedImage(params.session);
-  const aiImageDescription = await getAiDescriptionAndInsertToVectorize(params.session, imageUrl)
 
+  let aiImageDescription = "";
+  if (imageUrl) {
+    aiImageDescription = await getAiDescriptionAndInsertToVectorize(
+      params.session,
+      imageUrl
+    );
+  }
 
   return (
     <>
@@ -24,7 +37,11 @@ export default async function Home({ params }: { params: { session: string } }) 
             Describe the image you see below
           </p>
         </div>
-        <MainDisplay imageUrl={imageUrl} aiImageDescription={aiImageDescription} sessionId={params.session} />
+        <MainDisplay
+          imageUrl={imageUrl}
+          aiImageDescription={aiImageDescription}
+          sessionId={params.session}
+        />
       </div>
     </>
   );

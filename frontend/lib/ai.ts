@@ -5,51 +5,85 @@ async function getAiSimilarity(
   sessionId: string,
   text: string
 ): Promise<number> {
-  const response = await fetch("https://api.areyouaidemo.com/getSimilarityScore", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Session-Identifier": sessionId,
-    },
-    body: JSON.stringify({ sessionId, text }),
-  });
+  try {
+    const response = await fetch(
+      "https://api.areyouaidemo.com/getSimilarityScore",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Session-Identifier": sessionId,
+        },
+        body: JSON.stringify({ sessionId, text }),
+      }
+    );
 
-  const data = (await response.json()) as SimilarityScore;
+    if (!response.ok) {
+      throw new Error(`Failed to fetch similarity score`);
+    }
 
-  return data.similarityScore;
+    const data = (await response.json()) as SimilarityScore;
+
+    return data.similarityScore;
+  } catch (error) {
+    console.error("Error fetching similarity score:", error);
+    return 0;
+  }
 }
 
 async function getAiDescriptionAndInsertToVectorize(
   sessionId: string,
   imageUrl: string
-): Promise<any> {
-  const response = await fetch("https://api.areyouaidemo.com/aiImageDescription",  {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Session-Identifier": sessionId
-    },
-    body: JSON.stringify({ sessionId, imageUrl }),
-   
-  });
+): Promise<string> {
+  try {
+    const response = await fetch(
+      "https://api.areyouaidemo.com/aiImageDescription",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Session-Identifier": sessionId,
+        },
+        body: JSON.stringify({ sessionId, imageUrl }),
+      }
+    );
 
-  const data = (await response.json()) as AiImageDescription;
+    if (!response.ok) {
+      throw new Error(`Failed to fetch AI image description`);
+    }
 
-  return data?.aiImageDescription;
+    const data = (await response.json()) as AiImageDescription;
+
+    return data?.aiImageDescription;
+  } catch (error) {
+    console.error("Error fetching AI image description:", error);
+    return "";
+  }
 }
 
 async function getRandomAIGeneratedImage(sessionId: string): Promise<string> {
-  const response = await fetch("https://api.areyouaidemo.com/randomImageUrl", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      "Session-Identifier": sessionId
-    },
-  });
-  
-  const data = await response.json() as any;
+  try {
+    const response = await fetch(
+      "https://api.areyouaidemo.com/randomImageUrl",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Session-Identifier": sessionId,
+        },
+      }
+    );
 
-  return data.imageUrl;
+    if (!response.ok) {
+      throw new Error(`Failed to fetch AI generated image`);
+    }
+
+    const data = (await response.json()) as any;
+    return data.imageUrl;
+  } catch (error) {
+    console.error("Error fetching AI generated image:", error);
+    return "";
+  }
 }
 
 export {

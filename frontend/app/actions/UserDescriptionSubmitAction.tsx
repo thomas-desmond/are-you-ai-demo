@@ -13,6 +13,12 @@ const handleSubmitServerAction = async (prevState: any, formData: FormData) => {
 
   const score = await getAiSimilarity(sessionId, text);
 
+  if (!score) {
+    return {
+      similarityScore: 0,
+    };
+  }
+
   await insertIntoDatabase(
     sessionId,
     text,

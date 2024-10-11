@@ -31,6 +31,14 @@ const MainDisplay: React.FC<InputFormProps> = (props) => {
     initialState
   );
 
+  if (!props.imageUrl || !props.aiImageDescription) {
+    return (
+      <div>
+        <p>Error: Image could not be generated or generating AI Image Description failed.</p>
+      </div>
+    );
+  }
+
   return (
     <>
       <Image

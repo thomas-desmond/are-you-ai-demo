@@ -11,6 +11,22 @@ interface RecentSessionsTableProps {
 const RecentSessionsTable: React.FC<RecentSessionsTableProps> = ({
   recentSessions,
 }) => {
+
+  if (!recentSessions) {
+    return (
+      <Card className="w-full max-w-4xl mx-auto rounded-lg mt-28 mb-4">
+        <CardHeader className="bg-gradient-to-r from-[#FBAD41] via-[#F6821F] to-[#F6821F] text-black rounded-lg">
+          <CardTitle className="text-2xl font-bold">Recent Submissions</CardTitle>
+        </CardHeader>
+        <CardContent className="p-6">
+          <div className="text-center text-lg md:text-2xl text-gray-500">
+            Unable to retrieve recent sessions
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <Card className="w-full max-w-4xl mx-auto rounded-lg mt-28 mb-4">
       <CardHeader className="bg-gradient-to-r from-[#FBAD41] via-[#F6821F] to-[#F6821F] text-black rounded-lg">

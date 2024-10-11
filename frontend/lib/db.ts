@@ -21,7 +21,6 @@ async function insertIntoDatabase(sessionId: string, userDescription: string, ai
         throw new Error('Failed to insert data into the database');
       }
   
-      console.log('Data successfully inserted into the database');
     } catch (error) {
       console.error('Error inserting data into the database:', error);
     }

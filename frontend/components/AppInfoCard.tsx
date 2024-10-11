@@ -81,8 +81,8 @@ export default function AppInfoCard() {
         <Image
           src="/cloudflare-logo.png"
           alt="Cloudflare Logo"
-          width={277}
-          height={115}
+          width={139}
+          height={58}
         />{" "}
       </CardFooter>
     </Card>

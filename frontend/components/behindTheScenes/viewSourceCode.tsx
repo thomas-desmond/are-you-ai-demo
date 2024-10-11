@@ -6,9 +6,9 @@ import { Card, CardContent, CardFooter } from "../ui/card";
 export default function ViewSourceCode({}) {
   return (
     <Card className="w-full mx-auto bg-gradient-to-r from-[#FBAD41] via-[#F6821F] to-[#F6821F] text-black mb-4">
-      <CardContent className="flex items-center justify-between p-6">
-        <div className="space-y-1">
-          <h3 className="text-2xl font-bold">Source Code</h3>
+      <CardContent className="flex flex-col md:flex-row items-center justify-between p-6">
+        <div className="space-y-1 pb-4 md:pb-0">
+          <h3 className="text-xl font-bold">Source Code</h3>
           <p className="">
             Explore the GitHub repository powering this application
           </p>

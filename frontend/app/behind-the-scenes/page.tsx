@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import ViewSourceCode from "@/components/behindTheScenes/viewSourceCode";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -26,37 +25,31 @@ export default function BehindTheScenes() {
       </div>
       <div className="flex flex-col items-center mt-8">
         <div className="container mx-auto px-4 py-8 flex flex-col items-center w-full md:w-4/5">
-          <h1 className="text-3xl font-bold mb-6">
-            Behind the Scenes: How &quot;Are you AI?&quot; Works
-          </h1>
-          <h3 className="text-xl font-bold mb-6">
-            Taking advantage of Cloudflare&apos;s Developer Platform and Global
-            Network
-          </h3>
           <ViewSourceCode />
           <Card className="w-full">
             <CardHeader>
-              <CardTitle className="text-xl md:text-4xl underline">
-                How Are You AI? Works
+              <CardTitle className="text-2xl underline text-center text-gray-800">
+                Behind the Scenes: How &quot;Are you AI?&quot; Works
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <Accordion type="single" collapsible className="min-w-4xl">
+              <Accordion type="single" collapsible className="w-full">
                 {accordionData.map((item, index) => (
                   <AccordionItem
                     value={`item-${index}`}
                     key={index}
-                    className="border-b last:border-b-0 pb-4"
+                    className="border-b last:border-b-0"
                   >
                     <AccordionTrigger className="hover:no-underline my-4 w-full">
                       <div className="flex flex-row justify-between items-center">
-                        <h3 className="text-left text-lg md:text-2xl font-semibold">
-                         {index + 1}{". "} {item.title}
+                        <h3 className="text-left text-md md:text-lg font-semibold">
+                          {index + 1}
+                          {". "} {item.title}
                         </h3>
                         <ChevronDown />
                       </div>
                     </AccordionTrigger>
-                    <AccordionContent>
+                    <AccordionContent className="mb-2">
                       <div className="space-y-4 pt-4">
                         <div className="prose lg:prose-xl max-w-none">
                           <Markdown>{item.description}</Markdown>
@@ -69,7 +62,7 @@ export default function BehindTheScenes() {
                           className="rounded-lg w-full"
                         />
                         {item.learnMoreUrl && (
-                          <Button className="w-full mb-4 sm:w-auto bg-[#F6821F] text-black">
+                          <Button className="w-full sm:w-auto bg-[#F6821F] text-black">
                             <a
                               href={item.learnMoreUrl}
                               target="_blank"

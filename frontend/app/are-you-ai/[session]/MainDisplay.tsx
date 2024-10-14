@@ -8,6 +8,8 @@ import Image from "next/image";
 import { useFormState } from "react-dom";
 import { handleSubmitServerAction } from "@/app/actions/UserDescriptionSubmitAction";
 import { InputFormAndSubmitButton } from "./UserInputAndSubmit";
+import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
+import { toolTipData } from "@/content/toolTipData";
 
 export const runtime = "edge";
 
@@ -34,21 +36,38 @@ const MainDisplay: React.FC<InputFormProps> = (props) => {
   if (!props.imageUrl || !props.aiImageDescription) {
     return (
       <div>
-        <p>Error: Image could not be generated or generating AI Image Description failed.</p>
+        <p>
+          Error: Image could not be generated or generating AI Image Description
+          failed.
+        </p>
       </div>
     );
   }
 
   return (
     <>
-      <Image
-        src={props.imageUrl}
-        alt="AI Generated Image"
-        width={336}
-        height={187}
-        className="rounded-lg shadow-xl"
-        priority
-      />
+      <ComponentWrapper
+        imageUrls={[
+          "/products/workersai.svg",
+          "/products/aigateway.svg",
+          "/products/images.svg",
+        ]}
+        imageToolTips={[
+          toolTipData.randomImage,
+          toolTipData.aiGateway,
+          toolTipData.images,
+        ]}
+        imagePosition="top-right"
+      >
+        <Image
+          src={props.imageUrl}
+          alt="AI Generated Image"
+          width={336}
+          height={187}
+          className="rounded-lg shadow-xl"
+          priority
+        />
+      </ComponentWrapper>
       <form
         className="w-full flex justify-center items-center"
         action={formAction}
@@ -58,7 +77,11 @@ const MainDisplay: React.FC<InputFormProps> = (props) => {
           onValueChange={(value: string) => setUserDescription(value)}
         />
         <input type="hidden" name="sessionId" value={props.sessionId} />
-        <input type="hidden" name="aiImageDescription" value={props.aiImageDescription} />
+        <input
+          type="hidden"
+          name="aiImageDescription"
+          value={props.aiImageDescription}
+        />
         <input type="hidden" name="imageUrl" value={props.imageUrl} />
       </form>
       {state && state.similarityScore != -1 && (

@@ -5,6 +5,9 @@ import {
   getRandomAIGeneratedImage,
 } from "@/lib/ai";
 import MainDisplay from "./MainDisplay";
+import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
+import Image from "next/image";
+import { toolTipData } from "@/content/toolTipData";
 
 export const runtime = "edge";
 

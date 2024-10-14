@@ -1,4 +1,6 @@
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import ComponentWrapper from "../ComponentWrapper/ComponentWrapper";
+import { toolTipData } from "@/content/toolTipData";
 
 interface ResultsDisplayProps {
   userDescription: string;
@@ -6,16 +8,25 @@ interface ResultsDisplayProps {
   similarity: number;
 }
 
-export function ResultsDisplay({ userDescription, aiDescription, similarity }: ResultsDisplayProps) {
+export function ResultsDisplay({
+  userDescription,
+  aiDescription,
+  similarity,
+}: ResultsDisplayProps) {
   if (similarity === 0) {
     return (
       <Card className="w-full max-w-2xl mt-8">
         <CardHeader>
-          <CardTitle className="font-semibold text-xl underline">Error</CardTitle>
+          <CardTitle className="font-semibold text-xl underline">
+            Error
+          </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
-            <p>An error occurred while calculating the similarity score. Please try again.</p>
+            <p>
+              An error occurred while calculating the similarity score. Please
+              try again.
+            </p>
           </div>
         </CardContent>
       </Card>
@@ -25,21 +36,41 @@ export function ResultsDisplay({ userDescription, aiDescription, similarity }: R
   return (
     <Card className="w-full max-w-2xl mt-8">
       <CardHeader>
-        <CardTitle className="font-semibold text-xl underline" >Analysis Results</CardTitle>
+        <CardTitle className="font-semibold text-xl underline">
+          Analysis Results
+        </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <div>
-          <h3 className="font-semibold text-lg mb-2 underline">Your Description:</h3>
+          <h3 className="font-semibold text-lg mb-2 underline">
+            Your Description:
+          </h3>
           <p className="text-gray-700">{userDescription}</p>
         </div>
-        <div>
-          <h3 className="font-semibold text-lg mb-2 underline">AI&apos;s Description:</h3>
-          <p className="text-gray-700">{aiDescription}</p>
-        </div>
-        <div>
-          <h3 className="font-semibold text-lg mb-2 underline">Similarity Score:</h3>
-          <p className="text-2xl font-bold">{similarity}%</p>
-        </div>
+        <ComponentWrapper
+          imageUrls={["/products/workersai.svg"]}
+          imageToolTips={[toolTipData.aiDescription]}
+          imagePosition="top-right"
+        >
+          <div>
+            <h3 className="font-semibold text-lg mb-2 underline">
+              AI&apos;s Description:
+            </h3>
+            <p className="text-gray-700">{aiDescription}</p>
+          </div>
+        </ComponentWrapper>
+        <ComponentWrapper
+          imageUrls={["/products/vectorize.svg", "/products/workersai.svg"]}
+          imageToolTips={[toolTipData.vectorize, toolTipData.textEmbedding]}
+          imagePosition="bottom-right"
+        >
+          <div>
+            <h3 className="font-semibold text-lg mb-2 underline">
+              Similarity Score:
+            </h3>
+            <p className="text-2xl font-bold">{similarity}%</p>
+          </div>
+        </ComponentWrapper>
         <div>
           <h3 className="font-semibold text-lg mb-2 underline">Verdict:</h3>
           <p className="text-xl font-bold">
@@ -48,5 +79,5 @@ export function ResultsDisplay({ userDescription, aiDescription, similarity }: R
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

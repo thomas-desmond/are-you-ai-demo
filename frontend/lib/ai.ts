@@ -13,6 +13,7 @@ async function getAiSimilarity(
         headers: {
           "Content-Type": "application/json",
           "Session-Identifier": sessionId,
+          "API-Key": process.env.API_KEY as string,
         },
         body: JSON.stringify({ sessionId, text }),
       }
@@ -43,6 +44,7 @@ async function getAiDescriptionAndInsertToVectorize(
         headers: {
           "Content-Type": "application/json",
           "Session-Identifier": sessionId,
+          "API-Key": process.env.API_KEY as string,
         },
         body: JSON.stringify({ sessionId, imageUrl }),
       }
@@ -70,6 +72,7 @@ async function getRandomAIGeneratedImage(sessionId: string): Promise<string> {
         headers: {
           "Content-Type": "application/json",
           "Session-Identifier": sessionId,
+          "API-Key": process.env.API_KEY as string,
         },
       }
     );

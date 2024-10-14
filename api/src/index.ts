@@ -8,7 +8,7 @@ app.use(
 	'*',
 	cors({
 		origin: '*',
-		allowHeaders: ['X-Custom-Header', 'Upgrade-Insecure-Requests', 'Content-Type', `Session-Identifier` ],
+		allowHeaders: ['X-Custom-Header', 'Upgrade-Insecure-Requests', 'Content-Type', `Session-Identifier`, 'API-Key' ],
 		allowMethods: ['POST', 'GET'],
 		exposeHeaders: ['Content-Length', 'X-Kuma-Revision'],
 		maxAge: 600,
@@ -17,6 +17,11 @@ app.use(
 );
 
 app.post('/aiImageDescription', async (c: any) => {
+	const apiKey = c.req.header('API-Key');
+	if (!apiKey || apiKey !== c.env.API_KEY) {
+		return c.json({ error: 'Invalid API-Key' }, 401);
+	}
+
 	const body = await c.req.json();
 	const imageUrl = body.imageUrl;
 	const sessionId = body.sessionId;
@@ -40,6 +45,11 @@ app.post('/aiImageDescription', async (c: any) => {
 });
 
 app.post('/getSimilarityScore', async (c: any) => {
+	const apiKey = c.req.header('API-Key');
+	if (!apiKey || apiKey !== c.env.API_KEY) {
+		return c.json({ error: 'Invalid API-Key' }, 401);
+	}
+
 	const body = await c.req.json();
 	const sessionId = body.sessionId;
 	const guess = body.text;
@@ -59,6 +69,11 @@ app.post('/getSimilarityScore', async (c: any) => {
 });
 
 app.get('/randomImageUrl', async (c: any) => {
+	const apiKey = c.req.header('API-Key');
+	if (!apiKey || apiKey !== c.env.API_KEY) {
+		return c.json({ error: 'Invalid API-Key' }, 401);
+	}
+
 	const data = await getRandomImage(c);
 
 	if (data.success) {
@@ -73,6 +88,11 @@ app.get('/randomImageUrl', async (c: any) => {
 });
 
 app.post('/databaseInsert', async (c: any) => {
+	const apiKey = c.req.header('API-Key');
+	if (!apiKey || apiKey !== c.env.API_KEY) {
+		return c.json({ error: 'Invalid API-Key' }, 401);
+	}
+
 	const body = await c.req.json();
 	const sessionId = body.sessionId;
 	const userDescription = body.userDescription;
@@ -97,6 +117,11 @@ app.post('/databaseInsert', async (c: any) => {
 });
 
 app.get('/recentSessions', async (c: any) => {
+	const apiKey = c.req.header('API-Key');
+	if (!apiKey || apiKey !== c.env.API_KEY) {
+		return c.json({ error: 'Invalid API-Key' }, 401);
+	}
+	
 	const response = await c.env.DB.prepare('SELECT * FROM Sessions ORDER BY date DESC LIMIT 10;').all();
 
 	return c.json({

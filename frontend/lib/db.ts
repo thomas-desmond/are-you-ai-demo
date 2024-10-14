@@ -6,7 +6,8 @@ async function insertIntoDatabase(sessionId: string, userDescription: string, ai
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          "Session-Identifier": sessionId
+          "Session-Identifier": sessionId,
+          "API-Key": process.env.API_KEY as string,
         },
         body: JSON.stringify({
           sessionId,
@@ -32,6 +33,7 @@ async function fetchRecentSessions() {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                "API-Key": process.env.API_KEY as string,
             },
         });
 

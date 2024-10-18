@@ -6,9 +6,10 @@ import { LoadingSpinner } from "../../../components/ui/loadingSpinner";
 interface InputFormAndSubmitButtonProps {
     similarityScore: number | undefined;
     onValueChange: (value: string) => void;
+    disabled: boolean
 }
 
-export function InputFormAndSubmitButton({ similarityScore, onValueChange }:  InputFormAndSubmitButtonProps ) {
+export function InputFormAndSubmitButton({ similarityScore, onValueChange, disabled }:  InputFormAndSubmitButtonProps ) {
   const { pending } = useFormStatus();
 
   return (
@@ -22,8 +23,9 @@ export function InputFormAndSubmitButton({ similarityScore, onValueChange }:  In
             name="message"
             onChange={(e) => onValueChange(e.target.value)}
           />
-          <Button type="submit" className="w-full">
-            Submit Description
+          <Button type="submit" className="w-full" disabled={disabled}>
+            {disabled ? "Getting AI's Description..." : "Submit Your Description"}
+
           </Button>
         </div>
       )}

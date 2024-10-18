@@ -1,13 +1,9 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import {
-  getAiDescriptionAndInsertToVectorize,
   getRandomAIGeneratedImage,
 } from "@/lib/ai";
 import MainDisplay from "./MainDisplay";
-import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
-import Image from "next/image";
-import { toolTipData } from "@/content/toolTipData";
 
 export const runtime = "edge";
 
@@ -17,14 +13,6 @@ export default async function Home({
   params: { session: string };
 }) {
   const imageUrl = await getRandomAIGeneratedImage(params.session);
-
-  let aiImageDescription = "";
-  if (imageUrl) {
-    aiImageDescription = await getAiDescriptionAndInsertToVectorize(
-      params.session,
-      imageUrl
-    );
-  }
 
   return (
     <>
@@ -42,7 +30,6 @@ export default async function Home({
         </div>
         <MainDisplay
           imageUrl={imageUrl}
-          aiImageDescription={aiImageDescription}
           sessionId={params.session}
         />
       </div>

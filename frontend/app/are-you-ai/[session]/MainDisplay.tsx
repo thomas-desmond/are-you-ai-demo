@@ -10,12 +10,12 @@ import { handleSubmitServerAction } from "@/app/actions/UserDescriptionSubmitAct
 import { InputFormAndSubmitButton } from "./UserInputAndSubmit";
 import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
 import { toolTipData } from "@/content/toolTipData";
+import { getAiDescriptionAndInsertToVectorizeAction } from "@/app/actions/getAiImageDescriptionAndVectorizeInsert";
 
 export const runtime = "edge";
 
 interface InputFormProps {
   imageUrl: string;
-  aiImageDescription: string;
   sessionId: string;
 }
 
@@ -27,13 +27,22 @@ const initialState = {
 const MainDisplay: React.FC<InputFormProps> = (props) => {
   const [userDescription, setUserDescription] = React.useState<string>();
   const [nextSession, setNextSession] = React.useState<string>(nanoid());
+  const [aiImageDescription, setAiImageDescription] = React.useState<string>("");
 
   const [state, formAction] = useFormState(
     handleSubmitServerAction,
     initialState
   );
 
-  if (!props.imageUrl || !props.aiImageDescription) {
+  React.useEffect(() => {
+    const getAiDescription = async () => {
+      const aiImageDescription = await getAiDescriptionAndInsertToVectorizeAction(props.sessionId, props.imageUrl)
+      setAiImageDescription(aiImageDescription)
+    }
+ 
+    getAiDescription()  }, []);
+
+  if (!props.imageUrl) {
     return (
       <div>
         <p>
@@ -75,12 +84,13 @@ const MainDisplay: React.FC<InputFormProps> = (props) => {
         <InputFormAndSubmitButton
           similarityScore={state?.similarityScore}
           onValueChange={(value: string) => setUserDescription(value)}
+          disabled={Boolean(!aiImageDescription)}
         />
         <input type="hidden" name="sessionId" value={props.sessionId} />
         <input
           type="hidden"
           name="aiImageDescription"
-          value={props.aiImageDescription}
+          value={aiImageDescription}
         />
         <input type="hidden" name="imageUrl" value={props.imageUrl} />
       </form>
@@ -88,7 +98,7 @@ const MainDisplay: React.FC<InputFormProps> = (props) => {
         <>
           <ResultsDisplay
             userDescription={userDescription as string}
-            aiDescription={props.aiImageDescription}
+            aiDescription={aiImageDescription}
             similarity={state.similarityScore}
           />
           <Link href={`/are-you-ai/${nextSession}`}>

@@ -4,6 +4,7 @@ import {
   getRandomAIGeneratedImage,
 } from "@/lib/ai";
 import MainDisplay from "./MainDisplay";
+import { nanoid } from "nanoid";
 
 export const runtime = "edge";
 
@@ -12,7 +13,8 @@ export default async function Home({
 }: {
   params: { session: string };
 }) {
-  const imageUrl = await getRandomAIGeneratedImage(params.session);
+  const sessionId = nanoid();
+  const imageUrl = await getRandomAIGeneratedImage(sessionId);
 
   return (
     <>
@@ -30,7 +32,7 @@ export default async function Home({
         </div>
         <MainDisplay
           imageUrl={imageUrl}
-          sessionId={params.session}
+          sessionId={sessionId}
         />
       </div>
     </>

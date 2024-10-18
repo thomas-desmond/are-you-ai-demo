@@ -73,9 +73,32 @@ export function ResultsDisplay({
         </ComponentWrapper>
         <div>
           <h3 className="font-semibold text-lg mb-2 underline">Verdict:</h3>
-          <p className="text-xl font-bold">
-            {similarity >= 80 ? "You might be AI!" : "You're probably human!"}
-          </p>
+            <p className="text-xl font-bold">
+            {similarity >= 80
+              ? [
+              "You might be AI!",
+              "High similarity detected! Are you AI?",
+              "AI-like response!",
+              "Impressive! Your response is very AI-like.",
+              "AI detected! Your response is highly similar.",
+              "AI-level accuracy! Are you a machine?",
+              "AI-like precision detected!",
+              "Your response is highly AI-like!",
+              "AI-level similarity achieved!"
+              ].sort(() => 0.5 - Math.random())[0]
+              : [
+              "You're probably human!",
+              "Low similarity. Likely human.",
+              "Human-like response detected!",
+              "Your response seems human.",
+              "Human detected! Your response is not very AI-like.",
+              "Human-level response detected!",
+              "Your response is clearly human!",
+              "Human-like accuracy detected!",
+              "Your response is distinctly human!",
+              "Human-level similarity achieved!"
+              ].sort(() => 0.5 - Math.random())[0]}
+            </p>
         </div>
       </CardContent>
     </Card>

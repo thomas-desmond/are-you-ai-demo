@@ -66,7 +66,7 @@ async function getAiDescriptionAndInsertToVectorize(
 async function getRandomAIGeneratedImage(sessionId: string): Promise<string> {
   try {
     const response = await fetch(
-      "https://api.areyouaidemo.com/randomImageUrl",
+      "https://api.areyouaidemo.com/randomImageUrlOptimize",
       {
         method: "GET",
         headers: {

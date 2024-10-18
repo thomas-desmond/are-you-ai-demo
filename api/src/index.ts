@@ -16,6 +16,75 @@ app.use(
 	})
 );
 
+app.get('/randomImageUrl', async (c: any) => {
+	const apiKey = c.req.header('API-Key');
+	if (!apiKey || apiKey !== c.env.API_KEY) {
+		return c.json({ error: 'Invalid API-Key' }, 401);
+	}
+
+	const data = await getRandomImage(c);
+
+	if (data.success) {
+		return c.json({
+			imageUrl: data.result?.variants?.[0] ?? 'defaultImageUrl',
+		});
+	} else {
+		return c.json({
+			error: 'Image upload failed',
+		});
+	}
+});
+
+app.get('/randomImageUrlOptimize', async (c: any) => {
+	const apiKey = c.req.header('API-Key');
+	if (!apiKey || apiKey !== c.env.API_KEY) {
+		return c.json({ error: 'Invalid API-Key' }, 401);
+	}
+	const sessionId = c.req.header('Session-Identifier');
+
+	const data = await getRandomImage(c);
+	const imageUrl = data.result?.variants?.[0] ?? 'defaultImageUrl';
+
+	c.executionCtx.waitUntil(newFunction(c, imageUrl, sessionId));
+
+
+	if (data.success) {
+		return c.json({
+			imageUrl: imageUrl,
+		});
+	} else {
+		return c.json({
+			error: 'Image upload failed',
+		});
+	}
+});
+
+async function newFunction(c: any, imageUrl: string, sessionId: string) {
+	const res = await fetch(imageUrl);
+	const blob = await res.arrayBuffer();
+	const encodedImage = [...new Uint8Array(blob)];
+
+	const aiGeneratedDescription = await getAiImageDescription(c, encodedImage);
+	const aiVectorValues = await generateVectorEmbedding(c, aiGeneratedDescription);
+
+	console.log("getting to kv")
+	await c.env.are_you_ai_kv.put(sessionId, aiGeneratedDescription)
+	console.log("insert to kv")
+
+	await c.env.VECTORIZE.upsert([
+		{
+			id: sessionId,
+			values: aiVectorValues,
+			metadata: { sessionId: sessionId },
+		},
+	]);
+
+
+
+	return aiGeneratedDescription;
+}
+
+
 app.post('/aiImageDescription', async (c: any) => {
 	const apiKey = c.req.header('API-Key');
 	if (!apiKey || apiKey !== c.env.API_KEY) {
@@ -68,24 +137,6 @@ app.post('/getSimilarityScore', async (c: any) => {
 	});
 });
 
-app.get('/randomImageUrl', async (c: any) => {
-	const apiKey = c.req.header('API-Key');
-	if (!apiKey || apiKey !== c.env.API_KEY) {
-		return c.json({ error: 'Invalid API-Key' }, 401);
-	}
-
-	const data = await getRandomImage(c);
-
-	if (data.success) {
-		return c.json({
-			imageUrl: data.result?.variants?.[0] ?? 'defaultImageUrl',
-		});
-	} else {
-		return c.json({
-			error: 'Image upload failed',
-		});
-	}
-});
 
 app.post('/databaseInsert', async (c: any) => {
 	const apiKey = c.req.header('API-Key');
@@ -121,7 +172,7 @@ app.get('/recentSessions', async (c: any) => {
 	if (!apiKey || apiKey !== c.env.API_KEY) {
 		return c.json({ error: 'Invalid API-Key' }, 401);
 	}
-	
+
 	const response = await c.env.DB.prepare('SELECT * FROM Sessions ORDER BY date DESC LIMIT 10;').all();
 
 	return c.json({

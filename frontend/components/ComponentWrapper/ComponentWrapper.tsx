@@ -1,8 +1,5 @@
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
+  Tip,
 } from "@/components/ui/tooltip";
 import Image from "next/image";
 import React from "react";
@@ -62,22 +59,15 @@ export default function ComponentWrapper({
               className={`${index > 0 ? "relative" : ""}`}
               style={{ zIndex: imageUrls.length - index }}
             >
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger>
-                    <Image
-                      src={url}
-                      width={50}
-                      height={50}
-                      alt={`Corner image ${index + 1}`}
-                      className="object-cover pr-1 bg-transparent"
-                    />
-                  </TooltipTrigger>
-                  <TooltipContent>
-                <p>{imageToolTips[index]}</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+              <Tip content={imageToolTips[index]}>
+                <Image
+                  src={url}
+                  width={50}
+                  height={50}
+                  alt={`Corner image ${index + 1}`}
+                  className="object-cover pr-1 bg-transparent"
+                />
+              </Tip>
             </div>
           ))}
         </div>

@@ -4,17 +4,21 @@ import { Button } from "../../../components/ui/button";
 import { LoadingSpinner } from "../../../components/ui/loadingSpinner";
 
 interface InputFormAndSubmitButtonProps {
-    similarityScore: number | undefined;
-    onValueChange: (value: string) => void;
-    disabled: boolean
+  similarityScore: number | undefined;
+  onValueChange: (value: string) => void;
+  stillGeneratingAiDescription: boolean;
 }
 
-export function InputFormAndSubmitButton({ similarityScore, onValueChange, disabled }:  InputFormAndSubmitButtonProps ) {
+export function InputFormAndSubmitButton({
+  similarityScore,
+  onValueChange,
+  stillGeneratingAiDescription,
+}: InputFormAndSubmitButtonProps) {
   const { pending } = useFormStatus();
 
   return (
     <>
-      {(!pending && similarityScore == -1) && (
+      {!pending && similarityScore == -1 && (
         <div className="w-full max-w-md mt-2 bg-white p-6 rounded-lg shadow-xl flex flex-col justify-center">
           <Input
             placeholder="Give a detailed single sentence description"
@@ -23,9 +27,17 @@ export function InputFormAndSubmitButton({ similarityScore, onValueChange, disab
             name="message"
             onChange={(e) => onValueChange(e.target.value)}
           />
-          <Button type="submit" className="w-full" disabled={disabled}>
-            {disabled ? "Getting AI's Description..." : "Submit Your Description"}
-
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={
+              stillGeneratingAiDescription ||
+              !(document.getElementById("message") as HTMLInputElement)?.value
+            }
+          >
+            {stillGeneratingAiDescription
+              ? "Getting AI's Description..."
+              : "Submit Your Description"}
           </Button>
         </div>
       )}

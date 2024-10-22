@@ -84,7 +84,7 @@ const MainDisplay: React.FC<InputFormProps> = (props) => {
         <InputFormAndSubmitButton
           similarityScore={state?.similarityScore}
           onValueChange={(value: string) => setUserDescription(value)}
-          disabled={Boolean(!aiImageDescription)}
+          stillGeneratingAiDescription={Boolean(!aiImageDescription)}
         />
         <input type="hidden" name="sessionId" value={props.sessionId} />
         <input

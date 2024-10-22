@@ -96,7 +96,7 @@ export function ResultsDisplay({
               "Your response is clearly human!",
               "Human-like accuracy detected!",
               "Your response is distinctly human!",
-              "Human-level similarity achieved!"
+              "Human-level similarity!"
               ].sort(() => 0.5 - Math.random())[0]}
             </p>
         </div>

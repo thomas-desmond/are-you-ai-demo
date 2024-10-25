@@ -11,6 +11,7 @@ import { InputFormAndSubmitButton } from "./UserInputAndSubmit";
 import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
 import { toolTipData } from "@/content/toolTipData";
 import { getAiDescriptionAndInsertToVectorizeAction } from "@/app/actions/getAiImageDescriptionAndVectorizeInsert";
+import ShareButton from "./ShareButton";
 
 export const runtime = "edge";
 
@@ -27,7 +28,8 @@ const initialState = {
 const MainDisplay: React.FC<InputFormProps> = (props) => {
   const [userDescription, setUserDescription] = React.useState<string>();
   const [nextSession, setNextSession] = React.useState<string>(nanoid());
-  const [aiImageDescription, setAiImageDescription] = React.useState<string>("");
+  const [aiImageDescription, setAiImageDescription] =
+    React.useState<string>("");
 
   const [state, formAction] = useFormState(
     handleSubmitServerAction,
@@ -36,11 +38,16 @@ const MainDisplay: React.FC<InputFormProps> = (props) => {
 
   React.useEffect(() => {
     const getAiDescription = async () => {
-      const aiImageDescription = await getAiDescriptionAndInsertToVectorizeAction(props.sessionId, props.imageUrl)
-      setAiImageDescription(aiImageDescription)
-    }
- 
-    getAiDescription()  }, []);
+      const aiImageDescription =
+        await getAiDescriptionAndInsertToVectorizeAction(
+          props.sessionId,
+          props.imageUrl
+        );
+      setAiImageDescription(aiImageDescription);
+    };
+
+    getAiDescription();
+  }, []);
 
   if (!props.imageUrl) {
     return (
@@ -101,16 +108,22 @@ const MainDisplay: React.FC<InputFormProps> = (props) => {
             aiDescription={aiImageDescription}
             similarity={state.similarityScore}
           />
-          <Link href={`/are-you-ai/${nextSession}`}>
-            <Button className="max-w-md text-xl px-8 py-4 my-4">
-              Generate New Image
-            </Button>
-          </Link>
-          <Link className="mt-1" href={`/recent`}>
-            <Button variant="outline" className="py-2 px-8 text-lg">
-              Recent Sessions
-            </Button>
-          </Link>
+          <div className="w-full flex justify-center items-center space-between space-x-4">
+            <Link href={`/are-you-ai/${nextSession}`}>
+              <Button className="max-w-md text-xl px-8 py-4 my-4">
+                Generate New Image
+              </Button>
+            </Link>
+            <Link className="" href={`/recent`}>
+              <Button
+                variant="outline"
+                className="max-w-md text-xl px-8 py-4 my-4"
+              >
+                Recent Sessions
+              </Button>
+            </Link>
+          </div>
+          <ShareButton  similarity={state.similarityScore} />
         </>
       )}
     </>

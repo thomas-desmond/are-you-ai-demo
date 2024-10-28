@@ -7,7 +7,7 @@ async function getAiSimilarity(
 ): Promise<number> {
   try {
     const response = await fetch(
-      "https://api.areyouaidemo.com/getSimilarityScore",
+      process.env.API_ENDPOINT + "/getSimilarityScore",
       {
         method: "POST",
         headers: {
@@ -38,7 +38,7 @@ async function getAiDescriptionAndInsertToVectorize(
 ): Promise<string> {
   try {
     const response = await fetch(
-      "https://api.areyouaidemo.com/aiImageDescription",
+      process.env.API_ENDPOINT + "/aiImageDescription",
       {
         method: "POST",
         headers: {
@@ -66,7 +66,7 @@ async function getAiDescriptionAndInsertToVectorize(
 async function getRandomAIGeneratedImage(sessionId: string): Promise<string> {
   try {
     const response = await fetch(
-      "https://api.areyouaidemo.com/randomImageUrl",
+      process.env.API_ENDPOINT + "/randomImageUrl",
       {
         method: "GET",
         headers: {

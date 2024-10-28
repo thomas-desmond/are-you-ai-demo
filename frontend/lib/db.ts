@@ -9,7 +9,7 @@ async function insertIntoDatabase(
 ) {
   try {
     const response = await fetch(
-      process.env.API_ENDPOINT + "/databaseInsert",
+      new URL(process.env.API_ENDPOINT + "/databaseInsert").toString(),
       {
         method: "POST",
         headers: {
@@ -38,7 +38,7 @@ async function insertIntoDatabase(
 async function fetchRecentSessions() {
   try {
     const response = await fetch(
-      process.env.API_ENDPOINT + "/recentSessions",
+      new URL(process.env.API_ENDPOINT + "/recentSessions").toString(),
       {
         method: "GET",
         headers: {

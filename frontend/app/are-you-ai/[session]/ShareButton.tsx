@@ -13,6 +13,8 @@ import {
   TelegramIcon,
   TwitterShareButton,
   XIcon,
+  FacebookIcon,
+  FacebookShareButton,
 } from "react-share";
 
 interface ShareButtonProps {
@@ -47,6 +49,12 @@ export default function ShareButton({ similarity }: ShareButtonProps) {
               <p>X</p>
             </div>
           </TwitterShareButton>
+          <FacebookShareButton className="w-full justify-start" url={shareUrl}>
+            <div className="flex flex-row items-center space-x-2 ml-2">
+              <FacebookIcon className="h-4 w-4" />
+              <p>Facebook</p>
+            </div>
+          </FacebookShareButton>
           <WhatsappShareButton
             className="w-full justify-start"
             url={shareUrl}

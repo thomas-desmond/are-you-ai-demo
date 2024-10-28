@@ -108,9 +108,9 @@ const MainDisplay: React.FC<InputFormProps> = (props) => {
             aiDescription={aiImageDescription}
             similarity={state.similarityScore}
           />
-          <div className="w-full flex justify-center items-center space-between space-x-4">
+          <div className="w-full flex flex-col md:flex-row justify-center items-center space-between space-x-4">
             <Link href={`/are-you-ai/${nextSession}`}>
-              <Button className="max-w-md text-xl px-8 py-4 my-4">
+              <Button className="max-w-md text-xl px-4 py-4 my-4">
                 Generate New Image
               </Button>
             </Link>

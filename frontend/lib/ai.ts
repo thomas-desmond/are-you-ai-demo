@@ -3,7 +3,9 @@ import { SimilarityScore } from "@/types/similarityScore";
 
 async function getAiSimilarity(
   sessionId: string,
-  text: string
+  text: string,
+  aiImageDescription: string,
+  imageUrl: string
 ): Promise<number> {
   try {
     const response = await fetch(
@@ -15,7 +17,7 @@ async function getAiSimilarity(
           "Session-Identifier": sessionId,
           "API-Key": process.env.API_KEY as string,
         },
-        body: JSON.stringify({ sessionId, text }),
+        body: JSON.stringify({ sessionId, text, aiImageDescription, imageUrl }),
       }
     );
 

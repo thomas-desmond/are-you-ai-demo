@@ -69,5 +69,21 @@ async function getRandomImage(c: any): Promise<ImageUploadResponse> {
 	return data;
 }
 
+async function IsDescriptionAppropriate(c: any, userDescription: string): Promise<string> {
+	const messages = [
+		{
+			role: 'system',
+			content:
+				"You determine if text is appropriate. Assume we allow up to a PG rating. If appropriate return only the world 'true', if innappropriate return only 'false'",
+		},
+		{
+			role: 'user',
+			content: userDescription,
+		},
+	];
+	const appropriate = await c.env.AI.run('@cf/meta/llama-3.1-8b-instruct-fast', { messages });
+	return appropriate.response.toLowerCase();
+}
 
-export { getAiImageDescription, generateVectorEmbedding, getRandomImage };
+
+export { getAiImageDescription, generateVectorEmbedding, getRandomImage, IsDescriptionAppropriate };

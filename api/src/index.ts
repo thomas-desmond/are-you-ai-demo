@@ -1,6 +1,7 @@
 import { Hono } from 'hono';
-import { generateVectorEmbedding, getAiImageDescription, getRandomImage } from './utils/aiUtils';
+import { generateVectorEmbedding, getAiImageDescription, getRandomImage, IsDescriptionAppropriate } from './utils/aiUtils';
 import { cors } from 'hono/cors';
+import { insertSessionToDB } from './utils/dbUtils';
 
 const app = new Hono();
 
@@ -8,7 +9,7 @@ app.use(
 	'*',
 	cors({
 		origin: '*',
-		allowHeaders: ['X-Custom-Header', 'Upgrade-Insecure-Requests', 'Content-Type', `Session-Identifier`, 'API-Key' ],
+		allowHeaders: ['X-Custom-Header', 'Upgrade-Insecure-Requests', 'Content-Type', `Session-Identifier`, 'API-Key'],
 		allowMethods: ['POST', 'GET'],
 		exposeHeaders: ['Content-Length', 'X-Kuma-Revision'],
 		maxAge: 600,
@@ -63,6 +64,8 @@ app.post('/getSimilarityScore', async (c: any) => {
 		vectorQuery = await c.env.VECTORIZE.query(userVectorValues, { topK: 1, filter: { sessionId: sessionId } });
 	}
 
+	c.executionCtx.waitUntil(insertSessionToDB(c, vectorQuery.matches[0].score));
+
 	return c.json({
 		similarityScore: vectorQuery.matches[0].score,
 	});
@@ -87,41 +90,12 @@ app.get('/randomImageUrl', async (c: any) => {
 	}
 });
 
-app.post('/databaseInsert', async (c: any) => {
-	const apiKey = c.req.header('API-Key');
-	if (!apiKey || apiKey !== c.env.API_KEY) {
-		return c.json({ error: 'Invalid API-Key' }, 401);
-	}
-
-	const body = await c.req.json();
-	const sessionId = body.sessionId;
-	const userDescription = body.userDescription;
-	const aiImageDescription = body.aiImageDescription;
-	const score = body.score;
-	const imageUrl = body.imageUrl;
-
-	const username = null;
-	const email = null;
-
-	const response = await c.env.DB.prepare(
-		'INSERT INTO Sessions (sessionID, username, email, date, score, aiImageDescription, userDescription, imageUrl) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8);'
-	)
-		.bind(sessionId, username, email, new Date().toISOString(), score, aiImageDescription, userDescription, imageUrl)
-		.run();
-
-	console.log(response);
-
-	return c.json({
-		success: true,
-	});
-});
-
 app.get('/recentSessions', async (c: any) => {
 	const apiKey = c.req.header('API-Key');
 	if (!apiKey || apiKey !== c.env.API_KEY) {
 		return c.json({ error: 'Invalid API-Key' }, 401);
 	}
-	
+
 	const response = await c.env.DB.prepare('SELECT * FROM Sessions ORDER BY date DESC LIMIT 10;').all();
 
 	return c.json({
@@ -129,5 +103,6 @@ app.get('/recentSessions', async (c: any) => {
 	});
 });
 
-
 export default app;
+
+

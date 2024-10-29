@@ -1,40 +1,5 @@
 import { Root } from "@/types/database";
 
-async function insertIntoDatabase(
-  sessionId: string,
-  userDescription: string,
-  aiImageDescription: string,
-  score: number,
-  imageUrl: string
-) {
-  try {
-    const response = await fetch(
-      process.env.API_ENDPOINT + "/databaseInsert",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Session-Identifier": sessionId,
-          "API-Key": process.env.API_KEY as string,
-        },
-        body: JSON.stringify({
-          sessionId,
-          userDescription,
-          aiImageDescription,
-          score,
-          imageUrl,
-        }),
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error("Failed to insert data into the database");
-    }
-  } catch (error) {
-    console.error("Error inserting data into the database:", error);
-  }
-}
-
 async function fetchRecentSessions() {
   try {
     const response = await fetch(
@@ -60,4 +25,4 @@ async function fetchRecentSessions() {
   }
 }
 
-export { insertIntoDatabase, fetchRecentSessions };
+export { fetchRecentSessions };

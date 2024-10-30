@@ -77,15 +77,16 @@ app.get('/randomImageUrl', async (c: any) => {
 		return c.json({ error: 'Invalid API-Key' }, 401);
 	}
 
-	const data = await getRandomImage(c);
+	const randomNumber = Math.floor(Math.random() * 406) + 1;
+	const url = await c.env.KV.get(randomNumber);
 
-	if (data.success) {
+	if (url) {
 		return c.json({
-			imageUrl: data.result?.variants?.[0] ?? 'defaultImageUrl',
+			imageUrl: url,
 		});
 	} else {
 		return c.json({
-			error: 'Image upload failed',
+			error: 'Image Fetch Failed',
 		});
 	}
 });
@@ -104,5 +105,3 @@ app.get('/recentSessions', async (c: any) => {
 });
 
 export default app;
-
-

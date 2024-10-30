@@ -21,6 +21,11 @@ binding = "DB" # i.e. available in your Worker on env.DB
 database_name = "prod-are-you-ai-demo"
 database_id = "171e931b-1bee-476d-8f93-0fa387077756"
 
+[[kv_namespaces]]
+binding = "KV"
+id = "be4f8c9e20f740dca4736aa9f7072025"
+
+
 # Automatically place your workloads in an optimal location to minimize latency.
 # If you are running back-end logic in a Worker, running it closer to your back-end infrastructure
 # rather than the end user may result in better performance.

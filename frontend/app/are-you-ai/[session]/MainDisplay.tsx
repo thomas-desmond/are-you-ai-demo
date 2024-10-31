@@ -72,10 +72,10 @@ const MainDisplay: React.FC<InputFormProps> = (props) => {
           src={props.imageUrl}
           alt="AI Generated Image"
           width={336}
-          height={187}
+          height={336}
           className="rounded-lg shadow-xl"
-          priority
-        />
+          priority 
+     />
       </ComponentWrapper>
       <form
         className="w-full flex justify-center items-center"

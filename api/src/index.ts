@@ -77,7 +77,7 @@ app.get('/randomImageUrl', async (c: any) => {
 		return c.json({ error: 'Invalid API-Key' }, 401);
 	}
 
-	const randomNumber = Math.floor(Math.random() * 406) + 1;
+	const randomNumber = Math.floor(Math.random() * 999) + 1;
 	const url = await c.env.KV.get(randomNumber);
 
 	if (url) {

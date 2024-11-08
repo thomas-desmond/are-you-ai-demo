@@ -17,7 +17,7 @@ app.use(
 	})
 );
 
-app.post('/aiImageDescription', async (c: any) => {
+app.post('/populateVectorize', async (c: any) => {
 	const apiKey = c.req.header('API-Key');
 	if (!apiKey || apiKey !== c.env.API_KEY) {
 		return c.json({ error: 'Invalid API-Key' }, 401);
@@ -38,9 +38,42 @@ app.post('/aiImageDescription', async (c: any) => {
 		{
 			id: sessionId,
 			values: aiVectorValues,
+			metadata: { imageurl: imageUrl },
+		},
+	]);
+
+	return c.json({ aiImageDescription: aiGeneratedDescription });
+});
+
+app.post('/aiImageDescription', async (c: any) => {
+	const apiKey = c.req.header('API-Key');
+	if (!apiKey || apiKey !== c.env.API_KEY) {
+		return c.json({ error: 'Invalid API-Key' }, 401);
+	}
+
+	const body = await c.req.json();
+	const imageUrl = body.imageUrl;
+	const sessionId = body.sessionId;
+
+	const res = await fetch(imageUrl);
+	const blob = await res.arrayBuffer();
+	const encodedImage = [...new Uint8Array(blob)];
+
+	const aiGeneratedDescription = await getAiImageDescription(c, encodedImage);
+	const aiVectorValues = await generateVectorEmbedding(c, aiGeneratedDescription);
+
+	const startTime = Date.now();
+
+	await c.env.VECTORIZE.upsert([
+		{
+			id: sessionId,
+			values: aiVectorValues,
 			metadata: { sessionId: sessionId },
 		},
 	]);
+
+	const endTime = Date.now();
+	console.log(`Upsert operation took ${endTime - startTime} ms`);
 
 	return c.json({ aiImageDescription: aiGeneratedDescription });
 });

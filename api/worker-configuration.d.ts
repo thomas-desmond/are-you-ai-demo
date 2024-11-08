@@ -5,4 +5,6 @@ interface Env {
 	VECTORIZE: VectorizeIndex;
 	AI: Ai;
 	KV: KVNamespace
+	ai_description: KVNamespace
+	are_you_ai_embeddings: KVNamespace
 }

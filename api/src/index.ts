@@ -25,24 +25,21 @@ app.post('/populateVectorize', async (c: any) => {
 
 	const body = await c.req.json();
 	const imageUrl = body.imageUrl;
-	const sessionId = body.sessionId;
 
-	const res = await fetch(imageUrl);
-	const blob = await res.arrayBuffer();
-	const encodedImage = [...new Uint8Array(blob)];
-
-	const aiGeneratedDescription = await getAiImageDescription(c, encodedImage);
+	const aiGeneratedDescription = await c.env.ai_description.get(imageUrl);
 	const aiVectorValues = await generateVectorEmbedding(c, aiGeneratedDescription);
 
-	await c.env.VECTORIZE.upsert([
+	const imageId = imageUrl.match(/imagedelivery\.net\/[^/]+\/([^/]+)/)[1];
+
+	const response = await c.env.VECTORIZE.upsert([
 		{
-			id: sessionId,
+			id: imageId,
 			values: aiVectorValues,
-			metadata: { imageurl: imageUrl },
+			metadata: { imageurl: imageId },
 		},
 	]);
 
-	return c.json({ aiImageDescription: aiGeneratedDescription });
+	return c.json({ response: aiGeneratedDescription });
 });
 
 app.post('/aiImageDescription', async (c: any) => {
@@ -53,28 +50,8 @@ app.post('/aiImageDescription', async (c: any) => {
 
 	const body = await c.req.json();
 	const imageUrl = body.imageUrl;
-	const sessionId = body.sessionId;
 
-	const res = await fetch(imageUrl);
-	const blob = await res.arrayBuffer();
-	const encodedImage = [...new Uint8Array(blob)];
-
-	const aiGeneratedDescription = await getAiImageDescription(c, encodedImage);
-	const aiVectorValues = await generateVectorEmbedding(c, aiGeneratedDescription);
-
-	const startTime = Date.now();
-
-	await c.env.VECTORIZE.upsert([
-		{
-			id: sessionId,
-			values: aiVectorValues,
-			metadata: { sessionId: sessionId },
-		},
-	]);
-
-	const endTime = Date.now();
-	console.log(`Upsert operation took ${endTime - startTime} ms`);
-
+	const aiGeneratedDescription = await c.env.ai_description.get(imageUrl);
 	return c.json({ aiImageDescription: aiGeneratedDescription });
 });
 
@@ -83,18 +60,21 @@ app.post('/getSimilarityScore', async (c: any) => {
 	if (!apiKey || apiKey !== c.env.API_KEY) {
 		return c.json({ error: 'Invalid API-Key' }, 401);
 	}
-
 	const body = await c.req.json();
-	const sessionId = body.sessionId;
+	const imageUrl = body.imageUrl;
+
 	const guess = body.text;
 
 	const userVectorValues = await generateVectorEmbedding(c, guess);
+	const imageId = imageUrl.match(/imagedelivery\.net\/[^/]+\/([^/]+)/)[1];
 
-	let vectorQuery = await c.env.VECTORIZE.query(userVectorValues, { topK: 1, filter: { sessionId: sessionId } });
+	let vectorQuery = await c.env.VECTORIZE.query(userVectorValues, { topK: 1, filter: { imageurl: imageId } });
 
-	while (vectorQuery.count === 0) {
-		await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
-		vectorQuery = await c.env.VECTORIZE.query(userVectorValues, { topK: 1, filter: { sessionId: sessionId } });
+	if (vectorQuery.count === 0) {
+		console.log('No matches found');
+		return c.json({
+			similarityScore: 0.01,
+		});
 	}
 
 	c.executionCtx.waitUntil(insertSessionToDB(c, vectorQuery.matches[0].score));

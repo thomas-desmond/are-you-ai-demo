@@ -74,7 +74,7 @@ async function IsDescriptionAppropriate(c: any, userDescription: string): Promis
 		{
 			role: 'system',
 			content:
-				"You determine if text is appropriate. Assume we allow up to a PG rating. If appropriate return only the world 'true', if innappropriate return only 'false'",
+				"You are an AI that evaluates whether a given text is appropriate. Consider 'appropriate' to mean the text is free from offensive, discriminatory, or explicit content, and maintains a respectful tone suitable for a general audience. Respond only with 'true' if the text is appropriate or 'false' if it is inappropriate. Do not provide explanations or any other text.",
 		},
 		{
 			role: 'user',

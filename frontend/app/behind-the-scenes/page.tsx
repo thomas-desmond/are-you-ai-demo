@@ -51,9 +51,6 @@ export default function BehindTheScenes() {
                     </AccordionTrigger>
                     <AccordionContent className="mb-2">
                       <div className="space-y-4 pt-4">
-                        <div className="prose lg:prose-xl max-w-none">
-                          <Markdown>{item.description}</Markdown>
-                        </div>
                         <Image
                           src={item.imageSrc}
                           alt={item.title}
@@ -61,6 +58,9 @@ export default function BehindTheScenes() {
                           height={item.height}
                           className="rounded-lg w-full"
                         />
+                        <div className="prose !max-w-none ">
+                          <Markdown>{item.description}</Markdown>
+                        </div>
                         {item.learnMoreUrl && (
                           <Button className="w-full sm:w-auto bg-[#F6821F] text-black">
                             <a

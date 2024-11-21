@@ -103,7 +103,7 @@ const MainDisplay: React.FC<InputFormProps> = (props) => {
           />
           <Link href={`/are-you-ai/${nextSession}`}>
             <Button className="max-w-md text-xl px-8 py-4 my-4">
-              Generate New Image
+              Try Another Image
             </Button>
           </Link>
           <Link className="mt-1" href={`/recent`}>

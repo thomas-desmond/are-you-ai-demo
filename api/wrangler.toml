@@ -21,9 +21,9 @@ binding = "DB" # i.e. available in your Worker on env.DB
 database_name = "prod-are-you-ai-demo"
 database_id = "171e931b-1bee-476d-8f93-0fa387077756"
 
-[[kv_namespaces]]
-binding = "are_you_ai_embeddings"
-id = "92eba09b2a9843beb38c90985736b9e8"
+# [[kv_namespaces]]
+# binding = "are_you_ai_embeddings"
+# id = "92eba09b2a9843beb38c90985736b9e8"
 
 [[kv_namespaces]]
 binding = "KV"

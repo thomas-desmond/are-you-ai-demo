@@ -7,6 +7,9 @@ All code and information provided in this repository is made available on an “
 
 ## How To Deploy The App Yourself
 
+🚧 Under Construction 🚧
+
+The below steps are out of date.
   
 
 Note: This application requires a credit card and you will be charged for Cloudflare Images which does not have a free tier for image storage. All other services have a free tier, but you can incur charges if you go over the free tier. 

@@ -1,0 +1,37 @@
+{
+  "compatibility_date": "2024-08-21",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "main": "src/index.ts",
+  "name": "are-you-ai-api",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_id": "171e931b-1bee-476d-8f93-0fa387077756",
+      "database_name": "prod-are-you-ai-demo"
+    }
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "image_list",
+      "id": "be4f8c9e20f740dca4736aa9f7072025"
+    },
+    {
+      "binding": "ai_description",
+      "id": "ca6d161f53524801bc798daab92cb5d0"
+    }
+  ],
+  "vectorize": [
+    {
+      "binding": "VECTORIZE",
+      "index_name": "are-you-ai-prepopulated-prod"
+    }
+  ],
+  "ai": {
+    "binding": "AI"
+  },
+  "observability": {
+    "enabled": true
+  }
+}

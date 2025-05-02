@@ -14,10 +14,30 @@
 	"workflows": [
 		{
 			"name": "workflows-starter",
-			"binding": "MY_WORKFLOW",
-			"class_name": "MyWorkflow"
+			"binding": "ARE_YOU_AI_WORKFLOW",
+			"class_name": "AreYouAiWorkflow"
 		}
-	]
+	],
+	"ai": {
+		"binding": "AI"
+	},
+	"vectorize": [
+		{
+		  "binding": "VECTORIZE",
+		  "index_name": "are-you-ai-test"
+		}
+	  ],
+	  "kv_namespaces": [
+		{
+		  "binding": "image_list",
+		  "id": "dc3f5e2c91d84709850933eab36ac25e"
+		},
+		{
+			"binding": "ai_description",
+			"id": "6f5fc3f6d06e40aab1b1a09ec94f1155"
+		  }
+	  ],
+
 	/**
 	 * Smart Placement
 	 * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement

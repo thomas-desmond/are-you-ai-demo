@@ -44,7 +44,7 @@ Create an AI Gateway named `are-you-ai-demo` in your Cloudflare account:
    Replace `<your-db-name>` with your D1 database name
 
 #### 3. Populate KV and Vectorize
-Run these setup endpoints in order, it may look like nothing is happening but these setup scripts can take a few minutes to complete:
+Run these setup endpoints in order, it will look like nothing is happening but these setup scripts can take a few minutes to complete:
 
 1. **Setup Images**:
    - Visit: `<your-api-url>/setupImages`

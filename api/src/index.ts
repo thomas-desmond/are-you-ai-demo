@@ -69,7 +69,7 @@ app.post('/getSimilarityScore', async (c: any) => {
 	const userVectorValues = await generateVectorEmbedding(c, guess);
 	const imageId = imageUrl.match(/imagedelivery\.net\/[^/]+\/([^/]+)/)[1];
 
-	let vectorQuery = await c.env.VECTORIZE.query(userVectorValues, { topK: 1, filter: { imageurl: imageId } });
+	let vectorQuery = await c.env.VECTORIZE.query(userVectorValues, { topK: 1 });
 
 	if (vectorQuery.count === 0) {
 		console.log('No matches found');

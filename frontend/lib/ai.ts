@@ -34,7 +34,7 @@ async function getAiSimilarity(
   }
 }
 
-async function getAiDescriptionAndInsertToVectorize(
+async function getAiImageDescription(
   sessionId: string,
   imageUrl: string
 ): Promise<string> {
@@ -93,6 +93,6 @@ async function getRandomAIGeneratedImage(sessionId: string): Promise<string> {
 
 export {
   getAiSimilarity,
-  getAiDescriptionAndInsertToVectorize,
+  getAiImageDescription,
   getRandomAIGeneratedImage,
 };

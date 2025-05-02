@@ -10,7 +10,7 @@ import { handleSubmitServerAction } from "@/app/actions/UserDescriptionSubmitAct
 import { InputFormAndSubmitButton } from "./UserInputAndSubmit";
 import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
 import { toolTipData } from "@/content/toolTipData";
-import { getAiDescriptionAndInsertToVectorizeAction } from "@/app/actions/getAiImageDescriptionAndVectorizeInsert";
+import { getAiImageDescriptionAction } from "@/app/actions/getAiImageDescription";
 
 interface InputFormProps {
   imageUrl: string;
@@ -34,7 +34,7 @@ const MainDisplay: React.FC<InputFormProps> = (props) => {
 
   React.useEffect(() => {
     const getAiDescription = async () => {
-      const aiImageDescription = await getAiDescriptionAndInsertToVectorizeAction(props.sessionId, props.imageUrl)
+      const aiImageDescription = await getAiImageDescriptionAction(props.sessionId, props.imageUrl)
       setAiImageDescription(aiImageDescription)
     }
  
@@ -44,8 +44,7 @@ const MainDisplay: React.FC<InputFormProps> = (props) => {
     return (
       <div>
         <p>
-          Error: Image could not be generated or generating AI Image Description
-          failed.
+          Error: Image could not be retrieved. 
         </p>
       </div>
     );

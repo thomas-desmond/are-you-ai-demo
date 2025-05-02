@@ -17,20 +17,20 @@
 	"ai": {
 		"binding": "AI"
 	},
-	"vectorize": [
+	"kv_namespaces": [
 		{
-		  "binding": "VECTORIZE",
-		  "index_name": "are-you-ai-test"
-		}
-	  ],
-	  "kv_namespaces": [
-		{
-		  "binding": "image_list",
-		  "id": "dc3f5e2c91d84709850933eab36ac25e"
+			"binding": "image_list",
+			"id": "a9dfc3b886db41389fd0bbe1cc65788c"
 		},
 		{
 			"binding": "ai_description",
-			"id": "6f5fc3f6d06e40aab1b1a09ec94f1155"
-		  }
-	  ],
+			"id": "c458f3696c7c486192ccb25e3b5c2a07"
+		}
+	],
+	"vectorize": [
+		{
+			"binding": "VECTORIZE",
+			"index_name": "are-you-ai-demo"
+		}
+	]
 }

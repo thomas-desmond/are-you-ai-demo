@@ -2,6 +2,7 @@ import { Hono } from 'hono';
 import { generateVectorEmbedding, getAiImageDescription, getRandomImage, IsDescriptionAppropriate } from './utils/aiUtils';
 import { cors } from 'hono/cors';
 import { insertSessionToDB } from './utils/dbUtils';
+import { runImageSetup, runVectorizeSetup } from './utils/setup';
 
 const app = new Hono();
 
@@ -90,7 +91,7 @@ app.get('/randomImageUrl', async (c: any) => {
 		return c.json({ error: 'Invalid API-Key' }, 401);
 	}
 
-	const randomNumber = Math.floor(Math.random() * 999) + 1;
+	const randomNumber = Math.floor(Math.random() * 25) + 1;
 	const url = await c.env.image_list.get(randomNumber);
 
 	if (url) {
@@ -114,6 +115,22 @@ app.get('/recentSessions', async (c: any) => {
 
 	return c.json({
 		sessions: response,
+	});
+});
+
+app.get('/setupImages', async (c: any) => {
+	const response = await runImageSetup(c);
+
+	return c.json({
+		response: response,
+	});
+});
+
+app.get('/setupVectorize', async (c: any) => {
+	const response = await runVectorizeSetup(c);
+
+	return c.json({
+		response: response,
 	});
 });
 

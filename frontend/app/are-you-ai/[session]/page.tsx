@@ -12,9 +12,6 @@ export async function generateMetadata() {
   };
 }
 
-// Edge runtime configuration
-export const runtime = "edge";
-
 // Separate edge function for data fetching
 async function getImageData(sessionId: string) {
   return await getRandomAIGeneratedImage(sessionId);

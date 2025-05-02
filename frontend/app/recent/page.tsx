@@ -5,6 +5,8 @@ import Link from "next/link";
 import RecentSessionsTable from "./recentSessionsTable";
 import { Sessions } from "@/types/database";
 
+export const runtime = "edge";
+
 export default async function BehindTheScenes() {
   const recentSessions = await fetchRecentSessions() as Sessions;
 

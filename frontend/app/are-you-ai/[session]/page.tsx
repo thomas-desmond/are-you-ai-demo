@@ -6,6 +6,8 @@ import {
 import MainDisplay from "./MainDisplay";
 import { nanoid } from "nanoid";
 
+export const runtime = "edge";
+
 export default async function Home({
   params,
 }: {

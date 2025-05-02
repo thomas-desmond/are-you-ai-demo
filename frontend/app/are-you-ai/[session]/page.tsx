@@ -1,12 +1,24 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import {
-  getRandomAIGeneratedImage,
-} from "@/lib/ai";
+import { getRandomAIGeneratedImage } from "@/lib/ai";
 import MainDisplay from "./MainDisplay";
 import { nanoid } from "nanoid";
 
+// Separate edge runtime function
+export async function generateMetadata() {
+  return {
+    title: "Are you AI?",
+    description: "Describe the image you see below",
+  };
+}
+
+// Edge runtime configuration
 export const runtime = "edge";
+
+// Separate edge function for data fetching
+async function getImageData(sessionId: string) {
+  return await getRandomAIGeneratedImage(sessionId);
+}
 
 export default async function Home({
   params,
@@ -14,7 +26,7 @@ export default async function Home({
   params: { session: string };
 }) {
   const sessionId = nanoid();
-  const imageUrl = await getRandomAIGeneratedImage(sessionId);
+  const imageUrl = await getImageData(sessionId);
 
   return (
     <>

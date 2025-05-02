@@ -4,7 +4,6 @@ interface Env {
 	DB: D1Database;
 	VECTORIZE: VectorizeIndex;
 	AI: Ai;
-	KV: KVNamespace
+	image_list: KVNamespace
 	ai_description: KVNamespace
-	are_you_ai_embeddings: KVNamespace
 }

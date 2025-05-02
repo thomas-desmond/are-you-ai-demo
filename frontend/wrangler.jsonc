@@ -9,5 +9,8 @@
   },
   "observability": {
     "enabled": true
+  },
+  "vars": {
+    "API_ENDPOINT": "https://are-you-ai-api-test.thomas-development.workers.dev",
   }
 }

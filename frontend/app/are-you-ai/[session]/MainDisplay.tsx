@@ -12,8 +12,6 @@ import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
 import { toolTipData } from "@/content/toolTipData";
 import { getAiDescriptionAndInsertToVectorizeAction } from "@/app/actions/getAiImageDescriptionAndVectorizeInsert";
 
-export const runtime = "edge";
-
 interface InputFormProps {
   imageUrl: string;
   sessionId: string;

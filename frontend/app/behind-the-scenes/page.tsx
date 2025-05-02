@@ -13,8 +13,6 @@ import { accordionData } from "@/content/accordionData";
 import Markdown from "react-markdown";
 import Image from "next/image";
 
-export const runtime = "edge";
-
 export default function BehindTheScenes() {
   return (
     <>

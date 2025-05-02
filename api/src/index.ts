@@ -91,7 +91,7 @@ app.get('/randomImageUrl', async (c: any) => {
 	}
 
 	const randomNumber = Math.floor(Math.random() * 999) + 1;
-	const url = await c.env.KV.get(randomNumber);
+	const url = await c.env.image_list.get(randomNumber);
 
 	if (url) {
 		return c.json({

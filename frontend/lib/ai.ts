@@ -15,7 +15,6 @@ async function getAiSimilarity(
         headers: {
           "Content-Type": "application/json",
           "Session-Identifier": sessionId,
-          "API-Key": process.env.API_KEY as string,
         },
         body: JSON.stringify({ sessionId, text, aiImageDescription, imageUrl }),
       }
@@ -46,7 +45,6 @@ async function getAiImageDescription(
         headers: {
           "Content-Type": "application/json",
           "Session-Identifier": sessionId,
-          "API-Key": process.env.API_KEY as string,
         },
         body: JSON.stringify({ sessionId, imageUrl }),
       }
@@ -74,7 +72,6 @@ async function getRandomAIGeneratedImage(sessionId: string): Promise<string> {
         headers: {
           "Content-Type": "application/json",
           "Session-Identifier": sessionId,
-          "API-Key": process.env.API_KEY as string,
         },
       }
     );

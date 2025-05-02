@@ -8,7 +8,6 @@ async function fetchRecentSessions() {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "API-Key": process.env.API_KEY as string,
         },
       }
     );

@@ -1,7 +1,0 @@
-IMAGE_API_URL=https://api.cloudflare.com/client/v4/accounts/<your-account-id>/images/v1
-IMAGE_UPLOAD_TOKEN=<image-upload-token>
-
-API_KEY=<your-generated-api-key> # This should match the API key in .env.local in your /frontend folder
-API_ENDPOINT=localhost:8787
-
-AI_GATEWAY_ID=<ai-gateway-id>

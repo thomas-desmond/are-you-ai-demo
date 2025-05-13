@@ -52,7 +52,13 @@ app.post('/getSimilarityScore', async (c: any) => {
 });
 
 app.get('/randomImageUrl', async (c: any) => {
-	const randomNumber = Math.floor(Math.random() * 25) + 1;
+	let numberOfImages;
+	if (c.env.IS_PRODUCTION === 'true') {
+		numberOfImages = 998;
+	} else {
+		numberOfImages = 25;
+	}
+	const randomNumber = Math.floor(Math.random() * numberOfImages) + 1;
 	const url = await c.env.image_list.get(randomNumber);
 
 	if (url) {

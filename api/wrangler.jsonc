@@ -33,5 +33,8 @@
   },
   "observability": {
     "enabled": true
+  },
+  "placement": {
+    "mode": "smart"
   }
 }

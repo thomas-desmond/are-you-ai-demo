@@ -31,7 +31,7 @@ export default function AppInfoCard() {
       icon: Brain,
       title: "Workers AI",
       description:
-        "Run machine learning models, powered by serverless GPUs, on Cloudflare’s global network.",
+        "Run machine learning models, powered by serverless GPUs, on Cloudflare's global network.",
     },
     {
       icon: Server,
@@ -44,10 +44,35 @@ export default function AppInfoCard() {
   return (
     <Card className="w-full max-w-2xl mx-auto">
       <CardHeader>
-        <CardTitle className="text-2xl font-bold">Are You AI?</CardTitle>
-        <CardDescription>
-          This tool is a demo of Cloudflare&apos;s Developer Platform
-        </CardDescription>
+        <CardTitle className="text-4xl font-extrabold tracking-tight bg-gradient-to-r from-[#F38020] to-yellow-400 bg-clip-text text-transparent flex items-center gap-2">
+          <Server className="w-8 h-8 text-[#F38020] drop-shadow" />
+          Are You AI?
+        </CardTitle>
+        <div className="my-4 p-4 rounded-lg bg-orange-50 border-l-4 border-[#F38020] flex items-start space-x-3 shadow-sm">
+          <span className="text-md font-medium text-gray-900">
+            <span className="font-bold text-[#F38020] block mb-4">
+              Get ready to play the Are You AI Demo!
+            </span>
+
+            <span className="block mb-4">
+              You&apos;ll be shown an image and need to describe it in one clear
+              sentence.
+            </span>
+
+            <span className="block mb-4">
+              {" "}
+              After you submit your description, Workers AI will use an
+              image-to-text model to describe the same image. Last, Vectorize
+              will give you a similarity percentage that reveals how well your
+              description lines up with the AI&apos;s interpretation. The higher
+              the percentage, the more you think like AI.{" "}
+            </span>
+
+            <span className="font-semibold block">
+              Give it your best shot and see if you are AI!
+            </span>
+          </span>
+        </div>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

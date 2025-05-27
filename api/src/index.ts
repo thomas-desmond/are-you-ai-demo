@@ -53,7 +53,8 @@ app.post('/getSimilarityScore', async (c: any) => {
 
 app.get('/randomImageUrl', async (c: any) => {
 	let numberOfImages;
-	if (c.env.IS_PRODUCTION === 'true') {
+	const origin = c.req.headers.get('origin');
+	if (origin?.includes('areyouaidemo.com')) {
 		numberOfImages = 998;
 	} else {
 		numberOfImages = 25;

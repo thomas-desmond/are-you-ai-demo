@@ -54,8 +54,7 @@ app.post('/getSimilarityScore', async (c: any) => {
 app.get('/randomImageUrl', async (c: any) => {
 	let numberOfImages;
 	const hostname = new URL(c.req.url).hostname;
-	console.log('Hostname:', hostname);
-	if (hostname === 'areyouaidemo.com') {
+	if (hostname === 'api.areyouaidemo.com') {
 		numberOfImages = 998;
 	} else {
 		numberOfImages = 25;

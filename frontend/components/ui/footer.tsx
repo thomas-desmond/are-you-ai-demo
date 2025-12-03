@@ -14,7 +14,17 @@ export default function Footer() {
             Privacy Policy
           </Link>
         </div>
-        <BehindTheScenesButton />
+        <div className="flex items-center gap-3">
+          <Link 
+            href="https://forms.gle/UbUv9TB7Q2b4HEPLA"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm bg-gray-600 hover:bg-gray-700 text-white px-3 py-1 rounded-md transition-colors duration-200 border border-gray-500 hover:border-gray-400"
+          >
+            Provide Feedback
+          </Link>
+          <BehindTheScenesButton />
+        </div>
       </nav>
     </div>
   );
